@@ -44,3 +44,9 @@ discuss class-related topics.
 
 *Aside: I noticed that in the classes in which I have friends I can talk to, I have enjoyed the class more, and also
 done better academically. Having friends in your classes really helps to create a better learning environment.*
+
+## User Stories
+
+* As a user, I want to post a question in a class group.
+* As a user, I want to view a list of posts in a class group.
+* As a user, I want to add a comment in a post.
