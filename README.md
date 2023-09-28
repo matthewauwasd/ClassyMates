@@ -48,5 +48,6 @@ done better academically. Having friends in your classes really helps to create 
 ## User Stories
 
 * As a user, I want to post a question in a class group.
-* As a user, I want to view a list of posts in a class group.
+* As a user, I want to view multiple posts in a class group.
 * As a user, I want to add a comment in a post.
+* As a user, I want to view multiple comments in a class post.
