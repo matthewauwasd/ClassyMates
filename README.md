@@ -17,7 +17,8 @@ creating the ability to link them together through the classes they are taking.
 
 ### Application's Abilities
 
-This application allows professors to **create class-sized groups** that correspond to their appropriate course. 
+This application allows professors to **create class-sized groups** called **Classrooms** that correspond to their 
+appropriate course. 
 
 In these groups, professors, TAs and students are allowed to discuss course-related material through **posts**.
 
@@ -26,7 +27,8 @@ take place. Professors will not be able to access these subgroups. Students can 
 **interests** to subgroups. This will allow other students to find groups of people who are interested
 in the same things.
 
-Large groups will contain posts with the ability to comment, while subgroups will contain messages.
+Classrooms will contain **posts** with the ability for users to **comment** in those posts, 
+while subgroups will contain messages.
 
 ### Target Audience
 
@@ -39,7 +41,7 @@ This app can be used by the following:
 
 Currently, official class-discussion boards lack the ability to form any social connections with other students in
 those classes. On top of that, forming connections in-person is challenging, especially for introverts like me. I want
-to make this application to help students connect with each other while also having an environemnt where they can
+to make this application to help students connect with each other while also having an environment where they can
 discuss class-related topics.
 
 *Aside: I noticed that in the classes in which I have friends I can talk to, I have enjoyed the class more, and also
@@ -51,3 +53,4 @@ done better academically. Having friends in your classes really helps to create 
 * As a user, I want to view multiple posts in a class group.
 * As a user, I want to add a comment in a post.
 * As a user, I want to view multiple comments in a class post.
+* As a user, I want
