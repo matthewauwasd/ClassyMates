@@ -217,9 +217,7 @@ public class ClassyMatesApp {
                     System.out.println(c.getCommentBody());
                 }
             }
-            System.out.println("\nWhat would you like to do?");
-            System.out.println("\na - Create a comment");
-            System.out.println("b - Go back");
+            postViewOptions();
 
             String classroomChoice = input.next();
 
@@ -240,6 +238,12 @@ public class ClassyMatesApp {
         String enteredComment = input.next();
         Comment newComment = new Comment(enteredComment);
         currentPost.addComment(newComment);
+    }
+
+    private void postViewOptions() {
+        System.out.println("\nWhat would you like to do?");
+        System.out.println("\na - Create a comment");
+        System.out.println("b - Go back");
     }
 
 }
