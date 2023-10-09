@@ -1,21 +1,28 @@
 package ui;
 
 import model.Classroom;
+import model.Comment;
+import model.Post;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Scanner;
 
+// ClassyMates application
 public class ClassyMatesApp {
     private Scanner input;
     private List<Classroom> classroomList = new ArrayList<>();
     private Classroom currentClassroom;
+    private Post currentPost;
 
+    // EFFECTS: runs ClassyMates application
     public ClassyMatesApp() {
         runClassyMates();
     }
 
+    // MODIFIES: this
+    // EFFECTS: processes user commands
     private void runClassyMates() {
         boolean running = true;
         String command = null;
@@ -26,7 +33,7 @@ public class ClassyMatesApp {
             displayMenu();
             command = input.next();
             command = command.toLowerCase();
-            if (command.equals("c")) {
+            if (command.equals("d")) {
                 running = false;
             } else {
                 processCommand(command);
@@ -35,11 +42,14 @@ public class ClassyMatesApp {
 
     }
 
+    // MODIFIES: this
+    // EFFECTS: initializes scanner
     private void init() {
         input = new Scanner(System.in);
         input.useDelimiter("\n");
     }
 
+    // EFFECTS: displays initial options to user
     private void displayMenu() {
         System.out.println("\nWhat would you like to do?\n");
         System.out.println("a - Create a classroom.");
@@ -47,6 +57,7 @@ public class ClassyMatesApp {
         System.out.println("c - Exit the program.");
     }
 
+    // EFFECTS: moves user to appropriate method based on user input
     private void processCommand(String command) {
 
         if (command.equals("a")) {
@@ -58,6 +69,8 @@ public class ClassyMatesApp {
         }
     }
 
+    // MODIFIES: this
+    // EFFECTS: creates a new classroom
     private void createClassroom() {
         boolean running = true;
         while (running) {
@@ -74,6 +87,7 @@ public class ClassyMatesApp {
         }
     }
 
+    // EFFECTS: checks if user input is String and not visually empty
     private String checkIfString() {
         String className = "";
         boolean isString = true;
@@ -92,6 +106,7 @@ public class ClassyMatesApp {
         return className;
     }
 
+    // EFFECTS: checks if user input is int
     private int checkIfInt() {
         int classID = 0;
         boolean isInt = true;
@@ -101,7 +116,7 @@ public class ClassyMatesApp {
 
             if (input.hasNextInt()) {
                 classID = input.nextInt();
-                break;
+                isInt = false;
             } else {
                 System.out.println("Please enter a valid ID.");
                 input.next();
@@ -110,6 +125,7 @@ public class ClassyMatesApp {
         return classID;
     }
 
+    // EFFECTS: displays classrooms made and prompts user to go into a classroom
     private void viewClassroom() {
         System.out.println("\nType the classroom's ID would you like to view:");
         for (Classroom c : classroomList) {
@@ -125,18 +141,105 @@ public class ClassyMatesApp {
                 classroomView(currentClassroom);
             }
         }
-        System.out.println("Please enter a valid classroom ID.");
     }
 
+    // EFFECTS: moves user to appropriate method based on user input
     private void classroomView(Classroom c) {
-        String classroomChoice = "";
-        System.out.println("You are in classroom: " + c.getCourseName());
-        System.out.println("What would you like to do?");
-        System.out.println("\na - Create a post");
-        System.out.println("b - View posts");
-        System.out.println("c - Go back");
+        boolean running = true;
 
-        classroomChoice = input.next();
+        while (running) {
+            System.out.println("\nYou are in classroom: " + c.getCourseName());
+            System.out.println("What would you like to do?");
+            System.out.println("\na - Create a post");
+            System.out.println("b - View posts");
+            System.out.println("c - Go back");
+
+            String classroomChoice = input.next();
+
+            if (classroomChoice.equals("a")) {
+                createPost();
+            } else if (classroomChoice.equals("b")) {
+                viewPosts();
+            } else if (classroomChoice.equals("c")) {
+                running = false;
+            } else {
+                System.out.println("Please enter a valid input.");
+            }
+        }
+    }
+
+    // MODIFIES: this, Classroom
+    // EFFECTS: creates post based on user input and adds it to list of posts in associated classroom
+    private void createPost() {
+        System.out.println("Please enter the title of your post:");
+        String postTitle = input.next();
+        System.out.println("What would you like to write for your post?");
+        String postBody = input.next();
+
+        Post newPost = new Post(postTitle,postBody);
+        currentClassroom.addPost(newPost);
+    }
+
+    // EFFECTS: displays posts made and prompts user to view a specific post
+    private void viewPosts() {
+        System.out.println("\nHere are the current posts:");
+        for (Post p : currentClassroom.getPosts()) {
+            System.out.println(p.getPostTitle());
+        }
+
+        System.out.println("\nWhich post would you like to view?");
+        String viewWhichPost = input.next();
+
+        for (Post p : currentClassroom.getPosts()) {
+            if (viewWhichPost.equals(p.getPostTitle())) {
+                currentPost = p;
+                postView(currentPost);
+            }
+        }
+    }
+
+    // EFFECTS: displays post title, body, and comments associated with post,
+    // moves user to appropriate method based on user input
+    private void postView(Post p) {
+        boolean running = true;
+
+        while (running) {
+            System.out.println("\nYou are viewing post: " + p.getPostTitle());
+
+            System.out.println("\nPost Title: " + p.getPostTitle());
+            System.out.println("\n" + p.getPostBody());
+
+            System.out.println("\n\nComments:");
+            if (p.getComments().isEmpty()) {
+                System.out.println("There are currently no comments.");
+            } else {
+                for (Comment c : p.getComments()) {
+                    System.out.println(c.getCommentBody());
+                }
+            }
+            System.out.println("\nWhat would you like to do?");
+            System.out.println("\na - Create a comment");
+            System.out.println("b - Go back");
+
+            String classroomChoice = input.next();
+
+            if (classroomChoice.equals("a")) {
+                createComment();
+            } else if (classroomChoice.equals("b")) {
+                running = false;
+            } else {
+                System.out.println("Please enter a valid input.");
+            }
+        }
+    }
+
+    // MODIFIES: this, Post
+    // EFFECTS: creates new comment based on user input and adds it to associated Post
+    private void createComment() {
+        System.out.println("What would you like to comment?");
+        String enteredComment = input.next();
+        Comment newComment = new Comment(enteredComment);
+        currentPost.addComment(newComment);
     }
 
 }

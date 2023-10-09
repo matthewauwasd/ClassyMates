@@ -9,6 +9,8 @@ public class Comment {
         finalCommentBody = commentBody;
     }
 
+    // getters
+
     public String getCommentBody() {
         return finalCommentBody;
     }

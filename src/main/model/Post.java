@@ -7,6 +7,7 @@ public class Post {
     private final String finalPostTitle;
     private final String finalPostBody;
     //private final int POST_ID;
+    // POST ID will be count++;
     private List<Comment> comments;
 
     // REQUIRES: postTitle and postBody must not be empty Strings
@@ -24,6 +25,8 @@ public class Post {
     public void addComment(Comment c) {
         this.comments.add(c);
     }
+
+    // getters
 
     public String getPostTitle() {
         return finalPostTitle;

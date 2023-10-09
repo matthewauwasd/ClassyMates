@@ -26,6 +26,8 @@ public class Classroom {
         this.posts.add(p);
     }
 
+    // getters
+
     public String getCourseName() {
         return this.finalCourseName;
     }
