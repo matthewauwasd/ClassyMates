@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Classroom {
-    private final String COURSE_NAME;
-    private final int COURSE_ID;
+    private final String finalCourseName;
+    private final int finalCourseID;
     private List<Post> posts;
     // private List<User> users;
 
@@ -14,8 +14,8 @@ public class Classroom {
     // EFFECTS: creates a classroom with a courseName, courseID,
     // an empty list of posts, and an empty list of users
     public Classroom(String courseName, int courseID) {
-        this.COURSE_NAME = courseName;
-        this.COURSE_ID = courseID;
+        this.finalCourseName = courseName;
+        this.finalCourseID = courseID;
         this.posts = new ArrayList<Post>();
         // users = new ArrayList<User>();
     }
@@ -27,11 +27,11 @@ public class Classroom {
     }
 
     public String getCourseName() {
-        return this.COURSE_NAME;
+        return this.finalCourseName;
     }
 
     public int getCourseID() {
-        return this.COURSE_ID;
+        return this.finalCourseID;
     }
 
     public List<Post> getPosts() {
