@@ -26,6 +26,17 @@ public class Post {
         this.comments.add(c);
     }
 
+    public void deleteComment(String comment) {
+        for (int i = 0; i < this.comments.size(); i++) {
+            Comment currentComment = comments.get(i);
+            if (comment.equals(currentComment.getCommentBody())) {
+                this.comments.remove(currentComment);
+                i--;
+            }
+        }
+
+    }
+
     // getters
 
     public String getPostTitle() {

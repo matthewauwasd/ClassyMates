@@ -60,4 +60,31 @@ public class PostTest {
         assertEquals(comment1,commentList.get(1));
     }
 
+    @Test
+    void testDeleteComment() {
+        post1.addComment(comment2);
+        post1.addComment(comment1);
+        List<Comment> commentList = post1.getComments();
+        post1.deleteComment("I do not know the answer.");
+        assertEquals(comment2,commentList.get(0));
+        assertEquals(1,commentList.size());
+    }
+
+    @Test
+    void testDeleteTwoComment() {
+        post1.addComment(comment1);
+        post1.addComment(comment2);
+        List<Comment> commentList = post1.getComments();
+        post1.deleteComment("I do not know the answer.");
+        post1.deleteComment("The answer is...");
+        assertTrue(commentList.isEmpty());
+    }
+
+    @Test
+    void testDeleteCommentInEmptyList() {
+        List<Comment> commentList = post1.getComments();
+        post1.deleteComment("I do not know the answer.");
+        assertTrue(commentList.isEmpty());
+    }
+
 }

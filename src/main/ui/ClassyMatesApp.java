@@ -219,15 +219,7 @@ public class ClassyMatesApp {
             }
             postViewOptions();
 
-            String classroomChoice = input.next();
-
-            if (classroomChoice.equals("a")) {
-                createComment();
-            } else if (classroomChoice.equals("b")) {
-                running = false;
-            } else {
-                System.out.println("Please enter a valid input.");
-            }
+            tempMethod();
         }
     }
 
@@ -243,7 +235,29 @@ public class ClassyMatesApp {
     private void postViewOptions() {
         System.out.println("\nWhat would you like to do?");
         System.out.println("\na - Create a comment");
-        System.out.println("b - Go back");
+        System.out.println("b - Delete a comment");
+        System.out.println("c - Go back");
+    }
+
+    private void tempMethod() {
+        String classroomChoice = input.next();
+
+        if (classroomChoice.equals("a")) {
+            createComment();
+        } else if (classroomChoice.equals("b")) {
+            deleteComment();
+        } else if (classroomChoice.equals("c")) {
+            classroomView(currentClassroom);
+        } else {
+            System.out.println("Please enter a valid input.");
+        }
+    }
+
+    private void deleteComment() {
+        System.out.println("Which comment would you like to delete?");
+        String enteredComment = input.next();
+        Comment newComment = new Comment(enteredComment);
+        currentPost.deleteComment(enteredComment);
     }
 
 }
