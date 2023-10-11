@@ -1,5 +1,7 @@
 package model;
 
+
+// Represents a comment that contains a comment body
 public class Comment {
     private final String finalCommentBody;
 

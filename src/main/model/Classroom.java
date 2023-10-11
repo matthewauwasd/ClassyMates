@@ -3,6 +3,8 @@ package model;
 import java.util.ArrayList;
 import java.util.List;
 
+
+// Represents a classroom that has a course name, course ID, and list of posts
 public class Classroom {
     private final String finalCourseName;
     private final int finalCourseID;

@@ -3,6 +3,8 @@ package model;
 import java.util.ArrayList;
 import java.util.List;
 
+
+// Represents a post that has a title, a body, and a list of comments
 public class Post {
     private final String finalPostTitle;
     private final String finalPostBody;
