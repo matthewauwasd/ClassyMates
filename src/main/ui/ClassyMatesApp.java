@@ -219,7 +219,7 @@ public class ClassyMatesApp {
             }
             postViewOptions();
 
-            tempMethod();
+            postViewChoices();
         }
     }
 
@@ -232,6 +232,7 @@ public class ClassyMatesApp {
         currentPost.addComment(newComment);
     }
 
+    // EFFECTS: displays choices available in postView method
     private void postViewOptions() {
         System.out.println("\nWhat would you like to do?");
         System.out.println("\na - Create a comment");
@@ -239,7 +240,8 @@ public class ClassyMatesApp {
         System.out.println("c - Go back");
     }
 
-    private void tempMethod() {
+    // EFFECTS: moves user to appropriate method based on user input
+    private void postViewChoices() {
         String classroomChoice = input.next();
 
         if (classroomChoice.equals("a")) {
@@ -253,6 +255,8 @@ public class ClassyMatesApp {
         }
     }
 
+    // MODIFIES: this
+    // EFFECTS: deletes comment that matches String input
     private void deleteComment() {
         System.out.println("Which comment would you like to delete?");
         String enteredComment = input.next();

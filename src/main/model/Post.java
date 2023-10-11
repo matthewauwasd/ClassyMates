@@ -26,6 +26,8 @@ public class Post {
         this.comments.add(c);
     }
 
+    // MODIFIES: this
+    // EFFECTS: removes comment that matches input from list of comments
     public void deleteComment(String comment) {
         for (int i = 0; i < this.comments.size(); i++) {
             Comment currentComment = comments.get(i);
