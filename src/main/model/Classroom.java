@@ -9,37 +9,47 @@ public class Classroom {
     private final String finalCourseName;
     private final int finalCourseID;
     private List<Post> posts;
-    // private List<User> users;
+    private List<Subgroup> subgroups;
 
 
     // REQUIRES: courseName must not be an empty String, courseID > 0 and must be unique
     // EFFECTS: creates a classroom with a courseName, courseID,
     // an empty list of posts, and an empty list of users
     public Classroom(String courseName, int courseID) {
-        this.finalCourseName = courseName;
-        this.finalCourseID = courseID;
-        this.posts = new ArrayList<Post>();
-        // users = new ArrayList<User>();
+        finalCourseName = courseName;
+        finalCourseID = courseID;
+        posts = new ArrayList<Post>();
+        subgroups = new ArrayList<Subgroup>();
     }
 
     // MODIFIES: this
     // EFFECTS: adds post to list of posts
     public void addPost(Post p) {
-        this.posts.add(p);
+        posts.add(p);
+    }
+
+    // MODIFIES: this
+    // EFFECTS: adds subgroup to list of subgroups
+    public void addSubgroup(Subgroup sg) {
+        subgroups.add(sg);
     }
 
     // getters
 
     public String getCourseName() {
-        return this.finalCourseName;
+        return finalCourseName;
     }
 
     public int getCourseID() {
-        return this.finalCourseID;
+        return finalCourseID;
     }
 
     public List<Post> getPosts() {
-        return this.posts;
+        return posts;
+    }
+
+    public List<Subgroup> getSubgroups() {
+        return subgroups;
     }
 
 }

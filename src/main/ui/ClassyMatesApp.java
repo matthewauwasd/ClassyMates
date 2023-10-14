@@ -161,7 +161,7 @@ public class ClassyMatesApp {
             } else if (classroomChoice.equals("b")) {
                 viewPosts();
             } else if (classroomChoice.equals("c")) {
-                running = false;
+                runClassyMates();
             } else {
                 System.out.println("Please enter a valid input.");
             }
