@@ -1,5 +1,7 @@
 package model;
 
+import model.user.User;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,6 +12,7 @@ public class Classroom {
     private final int finalCourseID;
     private List<Post> posts;
     private List<Subgroup> subgroups;
+    private List<User> listOfUsers;
 
 
     // REQUIRES: courseName must not be an empty String, courseID > 0 and must be unique
@@ -50,6 +53,10 @@ public class Classroom {
 
     public List<Subgroup> getSubgroups() {
         return subgroups;
+    }
+
+    public List<User> getListOfUsers() {
+        return listOfUsers;
     }
 
 }

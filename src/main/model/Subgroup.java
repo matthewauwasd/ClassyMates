@@ -1,13 +1,17 @@
 package model;
 
+import model.user.Student;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+// Represents a subgroup with a name, a list of subgroup interests, and a list of messages
 public class Subgroup {
     private final String finalSubgroupName;
     private List<String> groupInterests;
     private List<Message> messages;
+    private List<Student> students;
 
     String[] allInterests = {"Anime","Art","Cars","Cooking","Environment","Exercising","Gardening","Hiking","Music",
             "Photography","Reading","Socializing","Sports","Tech","Travelling","Video Games","Volunteering","Yoga"};
@@ -18,6 +22,7 @@ public class Subgroup {
         finalSubgroupName = subgroupName;
         groupInterests = new ArrayList<>(5);
         messages = new ArrayList<Message>();
+        students = new ArrayList<Student>();
     }
 
     // MODIFIES: this
@@ -42,6 +47,14 @@ public class Subgroup {
 
     public List<String> getGroupInterests() {
         return groupInterests;
+    }
+
+    public List<Message> getMessages() {
+        return messages;
+    }
+
+    public List<Student> getListOfStudents() {
+        return students;
     }
 
 }
