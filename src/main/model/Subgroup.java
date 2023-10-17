@@ -28,19 +28,19 @@ public class Subgroup {
     // MODIFIES: this
     // EFFECTS: if given interest is in list of interests, adds given interest to subgroup interests
     public void addSubgroupInterest(String interest) {
-            for (String li : listOfInterests) {
-                if (groupInterests.isEmpty() && li.equals(interest)) {
+        for (String li : listOfInterests) {
+            if (groupInterests.isEmpty() && li.equals(interest)) {
+                groupInterests.add(interest);
+                break;
+            }
+            for (String gi : groupInterests) {
+                if (li.equals(interest) && (li != gi)) {
                     groupInterests.add(interest);
                     break;
                 }
-                for (String gi : groupInterests) {
-                    if (li.equals(interest) && (li != gi)) {
-                        groupInterests.add(interest);
-                        break;
-                    }
-                }
-
             }
+
+        }
     }
 
     // MODIFIES: this
