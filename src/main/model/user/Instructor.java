@@ -45,4 +45,10 @@ public class Instructor extends User {
         }
     }
 
+    // MODIFIES: Classroom
+    // EFFECTS: removes current instance of User from selected Classroom
+    public void leaveClassroom(Classroom selectedClassroom) {
+        selectedClassroom.getListOfUsers().remove(this);
+    }
+
 }

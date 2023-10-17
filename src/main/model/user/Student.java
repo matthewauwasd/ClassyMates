@@ -2,6 +2,8 @@ package model.user;
 
 import model.*;
 
+import java.util.List;
+
 // Represents a student with a username, password, and user type of student.
 // Has basic user privileges as well as those specific to students.
 public class Student extends User {
@@ -10,6 +12,7 @@ public class Student extends User {
         super(username,password,userType);
     }
 
+    // REQUIRES: subgroupName cannot be an empty String
     // MODIFIES: Subgroup
     // EFFECTS: creates and returns new subgroup with subgroup name
     public Subgroup createSubgroup(String subgroupName) {
@@ -46,6 +49,20 @@ public class Student extends User {
                 i--;
             }
         }
+    }
+
+    // MODIFIES: Classroom, Subgroup
+    // TEST IF THIS WORKS, IT MIGHT NOT...
+    // EFFECTS: removes current instance of User from selected Classroom
+    //          if user is in Subgroup(s), remove them from subgroup(s)
+    public void leaveClassroom(Classroom selectedClassroom) {
+        List<Subgroup> subgroups = selectedClassroom.getSubgroups();
+        for (Subgroup s : subgroups) {
+            if (s.getListOfStudents().contains(this)) {
+                s.getListOfStudents().remove(this);
+            }
+        }
+        selectedClassroom.getListOfUsers().remove(this);
     }
 
 }

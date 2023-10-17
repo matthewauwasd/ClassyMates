@@ -11,35 +11,31 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class UserTest {
-    private User student1;
-    private User student2;
+    protected User student1;
+    protected User student2;
     protected User instructor1;
     protected User instructor2;
-    private String student1username = "Student1";
-    private String student2username = "Student2";
+    protected String student1username = "Student1";
+    protected String student2username = "Student2";
     protected String instructor1username = "Instructor1";
     protected String instructor2username = "Instructor2";
-    private String student1password = "Password1";
-    private String student2password = "Password2";
+    protected String student1password = "Password1";
+    protected String student2password = "Password2";
     protected String instructor1password = "Teacher1";
     protected String instructor2password = "Teacher2";
-    private String studentType = "Student";
+    protected String studentType = "Student";
     protected String instructorType = "Instructor";
-    private Classroom classroom1;
-    private Classroom classroom2;
-    private Subgroup subgroup1;
-    private Subgroup subgroup2;
+    protected Classroom classroom1;
+    protected Classroom classroom2;
 
     @BeforeEach
     void runBefore() {
         classroom1 = new Classroom("CPSC 210", 210);
         classroom2 = new Classroom("CPSC 110", 110);
-        subgroup1 = new Subgroup("Subgroup1");
-        subgroup2 = new Subgroup("Subgroup2");
-        student1 = new User(student1username,student1password,studentType);
-        student2 = new User(student2username,student2password,studentType);
-        instructor1 = new User(instructor1username,instructor1password,instructorType);
-        instructor2 = new User(instructor2username,instructor2password,instructorType);
+        student1 = new Student(student1username,student1password,studentType);
+        student2 = new Student(student2username,student2password,studentType);
+        instructor1 = new Instructor(instructor1username,instructor1password,instructorType);
+        instructor2 = new Instructor(instructor2username,instructor2password,instructorType);
     }
 
     @Test
@@ -180,79 +176,6 @@ public class UserTest {
         assertEquals(instructor1,classroom1.getListOfUsers().get(0));
         assertEquals(instructor2,classroom1.getListOfUsers().get(1));
         assertEquals(2,classroom1.getListOfUsers().size());
-    }
-
-    @Test
-    void testLeaveClassroomStudent() {
-        student1.joinClassroom(classroom1);
-        student1.leaveClassroom(classroom1);
-        assertTrue(classroom1.getListOfUsers().isEmpty());
-    }
-
-    @Test
-    void testLeaveClassroomInstructor() {
-        instructor1.joinClassroom(classroom1);
-        instructor1.leaveClassroom(classroom1);
-        assertTrue(classroom1.getListOfUsers().isEmpty());
-    }
-
-    @Test
-    void testLeaveClassroomTwoClassroomStudent() {
-        student2.joinClassroom(classroom1);
-        student2.joinClassroom(classroom2);
-        student2.leaveClassroom(classroom1);
-        student2.leaveClassroom(classroom2);
-        assertTrue(classroom1.getListOfUsers().isEmpty());
-        assertTrue(classroom2.getListOfUsers().isEmpty());
-    }
-
-    @Test
-    void testLeaveClassroomTwoClassroomInstructor() {
-        instructor2.joinClassroom(classroom1);
-        instructor2.joinClassroom(classroom2);
-        instructor2.leaveClassroom(classroom1);
-        instructor2.leaveClassroom(classroom2);
-        assertTrue(classroom1.getListOfUsers().isEmpty());
-        assertTrue(classroom2.getListOfUsers().isEmpty());
-    }
-
-    @Test
-    void testLeaveClassroomOneStudentLeaveOneStudentRemaining() {
-        student1.joinClassroom(classroom1);
-        student2.joinClassroom(classroom1);
-        student1.leaveClassroom(classroom1);
-        assertEquals(student2,classroom1.getListOfUsers().get(0));
-        assertEquals(1,classroom1.getListOfUsers().size());
-    }
-
-    @Test
-    void testLeaveClassroomOneInstructorLeaveOneInstructorRemaining() {
-        instructor1.joinClassroom(classroom1);
-        instructor2.joinClassroom(classroom1);
-        instructor1.leaveClassroom(classroom1);
-        assertEquals(instructor2,classroom1.getListOfUsers().get(0));
-        assertEquals(1,classroom1.getListOfUsers().size());
-    }
-
-    @Test
-    void testLeaveClassroomStudentInSubgroup() {
-        classroom1.addSubgroup(subgroup1);
-        student1.joinClassroom(classroom1);
-        student1.joinSubgroup(subgroup1);
-        student1.leaveClassroom(classroom1);
-        assertTrue(subgroup1.getListOfStudents().isEmpty());
-    }
-
-    @Test
-    void testLeaveClassroomStudentInTwoSubgroup() {
-        classroom1.addSubgroup(subgroup1);
-        classroom1.addSubgroup(subgroup2);
-        student1.joinClassroom(classroom1);
-        student1.joinSubgroup(subgroup1);
-        student1.joinSubgroup(subgroup2);
-        student1.leaveClassroom(classroom1);
-        assertTrue(subgroup1.getListOfStudents().isEmpty());
-        assertTrue(subgroup2.getListOfStudents().isEmpty());
     }
 
 }

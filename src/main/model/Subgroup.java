@@ -20,7 +20,7 @@ public class Subgroup {
     // EFFECTS: creates a Subgroup with given name and empty list of group interests represented as strings
     public Subgroup(String subgroupName) {
         finalSubgroupName = subgroupName;
-        groupInterests = new ArrayList<>(5);
+        groupInterests = new ArrayList<String>();
         messages = new ArrayList<Message>();
         students = new ArrayList<Student>();
     }
@@ -28,24 +28,46 @@ public class Subgroup {
     // MODIFIES: this
     // EFFECTS: if given interest is in list of interests, adds given interest to subgroup interests
     public void addSubgroupInterest(String interest) {
-        for (String s : listOfInterests) {
-            if (s.equals(interest)) {
-                groupInterests.add(s);
+            for (String li : listOfInterests) {
+                if (groupInterests.isEmpty() && li.equals(interest)) {
+                    groupInterests.add(interest);
+                    break;
+                }
+                for (String gi : groupInterests) {
+                    if (li.equals(interest) && (li != gi)) {
+                        groupInterests.add(interest);
+                        break;
+                    }
+                }
+
+            }
+    }
+
+    // MODIFIES: this
+    // EFFECTS: if given interest is in group interests, removes interest from group interests
+    public void removeSubgroupInterest(String interest) {
+//        for (String s : groupInterests) {
+//                if (s.equals(interest)) {
+//                    groupInterests.remove(s);
+//                }
+//
+//        }
+        for (int i = 0; i < groupInterests.size(); i++) {
+            String currentInterest = groupInterests.get(i);
+            if (currentInterest.equals(interest)) {
+                groupInterests.remove(currentInterest);
+                i--;
             }
         }
     }
 
     // getters
 
-    public List<String> getListOfInterests() {
-        return listOfInterests;
-    }
-
-    public String getFinalSubgroupName() {
+    public String getSubgroupName() {
         return finalSubgroupName;
     }
 
-    public List<String> getGroupInterests() {
+    public List<String> getSubgroupInterests() {
         return groupInterests;
     }
 

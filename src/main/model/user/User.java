@@ -3,12 +3,9 @@ package model.user;
 import model.Classroom;
 import model.Comment;
 import model.Post;
-import model.Subgroup;
-
-import java.util.List;
 
 // Represents a user who is able to post and comment, with a username, password, and user type.
-public class User {
+public abstract class User {
     protected final String finalUsername;
     protected final String finalPassword;
     protected final String userType;
@@ -43,20 +40,8 @@ public class User {
 
     // MODIFIES: Classroom
     // EFFECTS: removes current instance of User from selected Classroom
-    //          if user is in Subgroup(s), remove them from subgroup(s)
-    public void leaveClassroom(Classroom selectedClassroom) {
-        List<Subgroup> subgroups = selectedClassroom.getSubgroups();
-        for (Subgroup s : subgroups) {
-            if (s.getListOfStudents().contains(this)) {
-                s.getListOfStudents().remove(this);
-            }
-        }
-        selectedClassroom.getListOfUsers().remove(this);
-    }
-
-    // EFFECTS: method that does nothing, purpose is to be overridden by Student subclass
-    public void joinSubgroup(Subgroup sg) {
-    }
+    //          if user is a Student and is in Subgroup(s), remove them from subgroup(s)
+    public abstract void leaveClassroom(Classroom selectedClassroom);
 
     // getters
 
