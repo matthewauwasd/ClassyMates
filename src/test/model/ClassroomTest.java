@@ -1,8 +1,12 @@
 package model;
 
+import model.user.Instructor;
+import model.user.Student;
+import model.user.User;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -18,20 +22,32 @@ class ClassroomTest {
     private Post post2;
     private String post2Title = "Question 3";
     private String post2Body= "How do you do this?";
+    private Student student1;
+    private Instructor instructor1;
+    private Subgroup subgroup1;
+    private Subgroup subgroup2;
 
     @BeforeEach
     void runBefore() {
+        student1 = new Student("Gage","Waltuh","Student");
+        instructor1 = new Instructor("Prof","MATH","Instructor");
         course1 = new Classroom(course1Name,course1ID);
-        post1 = new Post(post1Title,post1Body);
-        post2 = new Post(post2Title,post2Body);
+        post1 = new Post(student1.getUsername(),post1Title,post1Body);
+        post2 = new Post(instructor1.getUsername(),post2Title,post2Body);
+        subgroup1 = new Subgroup("The Bois");
+        subgroup2 = new Subgroup("Flowers");
     }
 
     @Test
     void testConstructor() {
         assertEquals("CPSC 210",course1.getCourseName());
         assertEquals(210,course1.getCourseID());
+        List<User> userList = course1.getListOfUsers();
+        assertTrue(userList.isEmpty());
         List<Post> postList = course1.getPosts();
         assertTrue(postList.isEmpty());
+        List<Subgroup> subgroupList = course1.getSubgroups();
+        assertTrue(subgroupList.isEmpty());
     }
 
     @Test
@@ -60,6 +76,34 @@ class ClassroomTest {
         assertEquals(2,postList.size());
         assertEquals(post2,postList.get(0));
         assertEquals(post1,postList.get(1));
+    }
+
+    @Test
+    void testAddSubgroup() {
+        course1.addSubgroup(subgroup1);
+        List<Subgroup> subgroupList = course1.getSubgroups();
+        assertEquals(1,subgroupList.size());
+        assertEquals(subgroup1,subgroupList.get(0));
+    }
+
+    @Test
+    void testAddTwoSubgroups() {
+        course1.addSubgroup(subgroup1);
+        course1.addSubgroup(subgroup2);
+        List<Subgroup> subgroupList = course1.getSubgroups();
+        assertEquals(2,subgroupList.size());
+        assertEquals(subgroup1,subgroupList.get(0));
+        assertEquals(subgroup2,subgroupList.get(1));
+    }
+
+    @Test
+    void testAddSubgroupsInDifferentOrder() {
+        course1.addSubgroup(subgroup2);
+        course1.addSubgroup(subgroup1);
+        List<Subgroup> subgroupList = course1.getSubgroups();
+        assertEquals(2,subgroupList.size());
+        assertEquals(subgroup2,subgroupList.get(0));
+        assertEquals(subgroup1,subgroupList.get(1));
     }
 
 }

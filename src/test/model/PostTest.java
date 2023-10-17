@@ -1,5 +1,7 @@
 package model;
 
+import model.user.Instructor;
+import model.user.Student;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -9,6 +11,10 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class PostTest {
+    private Student student1;
+    private Student student2;
+    private Student student3;
+    private Instructor instructor1;
     private Post post1;
     private String post1Title = "Question Title?";
     private String post1Body = "I have a question...";
@@ -19,13 +25,18 @@ public class PostTest {
 
     @BeforeEach
     void runBefore() {
-        post1 = new Post(post1Title,post1Body);
-        comment1 = new Comment(comment1Body);
-        comment2 = new Comment(comment2Body);
+        instructor1 = new Instructor("Instructor1","12345","Instructor");
+        student1 = new Student("Student1","678910","Student");
+        student2 = new Student("Student2","Hey","Student");
+        student3 = new Student("Student3","Bye","Student");
+        post1 = new Post(student1.getUsername(),post1Title,post1Body);
+        comment1 = new Comment(student2.getUsername(),comment1Body);
+        comment2 = new Comment(student3.getUsername(),comment2Body);
     }
 
     @Test
     void testConstructor() {
+        assertEquals("Student1",post1.getUserWhoPosted());
         assertEquals("Question Title?",post1.getPostTitle());
         assertEquals("I have a question...",post1.getPostBody());
         List<Comment> commentList = post1.getComments();
@@ -37,6 +48,8 @@ public class PostTest {
         post1.addComment(comment1);
         List<Comment> commentList = post1.getComments();
         assertEquals(comment1,commentList.get(0));
+        assertEquals("Student2",commentList.get(0).getUserWhoPosted());
+        assertEquals("I do not know the answer.",commentList.get(0).getCommentBody());
         assertEquals(1,commentList.size());
     }
 
@@ -47,7 +60,11 @@ public class PostTest {
         List<Comment> commentList = post1.getComments();
         assertEquals(2,commentList.size());
         assertEquals(comment1,commentList.get(0));
+        assertEquals("Student2",commentList.get(0).getUserWhoPosted());
+        assertEquals("I do not know the answer.",commentList.get(0).getCommentBody());
         assertEquals(comment2,commentList.get(1));
+        assertEquals("Student3",commentList.get(1).getUserWhoPosted());
+        assertEquals("The answer is...",commentList.get(1).getCommentBody());
     }
 
     @Test
@@ -57,7 +74,11 @@ public class PostTest {
         List<Comment> commentList = post1.getComments();
         assertEquals(2,commentList.size());
         assertEquals(comment2,commentList.get(0));
+        assertEquals("Student3",commentList.get(0).getUserWhoPosted());
+        assertEquals("The answer is...",commentList.get(0).getCommentBody());
         assertEquals(comment1,commentList.get(1));
+        assertEquals("Student2",commentList.get(1).getUserWhoPosted());
+        assertEquals("I do not know the answer.",commentList.get(1).getCommentBody());
     }
 
 }

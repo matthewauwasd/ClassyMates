@@ -8,7 +8,7 @@ import model.Subgroup;
 import java.util.List;
 
 // Represents a user who is able to post and comment, with a username, password, and user type.
-public abstract class User {
+public class User {
     protected final String finalUsername;
     protected final String finalPassword;
     protected final String userType;
@@ -54,6 +54,10 @@ public abstract class User {
         selectedClassroom.getListOfUsers().remove(this);
     }
 
+    // EFFECTS: method that does nothing, purpose is to be overridden by Student subclass
+    public void joinSubgroup(Subgroup sg) {
+    }
+
     // getters
 
     public String getUsername() {
@@ -67,5 +71,4 @@ public abstract class User {
     public String getUserType() {
         return userType;
     }
-
 }

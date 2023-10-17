@@ -21,6 +21,7 @@ public class Classroom {
     public Classroom(String courseName, int courseID) {
         finalCourseName = courseName;
         finalCourseID = courseID;
+        listOfUsers = new ArrayList<User>();
         posts = new ArrayList<Post>();
         subgroups = new ArrayList<Subgroup>();
     }

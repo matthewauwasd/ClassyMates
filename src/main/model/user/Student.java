@@ -41,7 +41,7 @@ public class Student extends User {
     public void deleteMessage(Subgroup currentSubgroup, String messageBody) {
         for (int i = 0; i < currentSubgroup.getMessages().size(); i++) {
             Message currentMessage = currentSubgroup.getMessages().get(i);
-            if (messageBody.equals(currentMessage.getCommentBody())) {
+            if (messageBody.equals(currentMessage.getMessageBody())) {
                 currentSubgroup.getMessages().remove(currentMessage);
                 i--;
             }

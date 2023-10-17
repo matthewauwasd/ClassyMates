@@ -1,7 +1,7 @@
-package ui;
-
-public class Main {
-    public static void main(String[] args) {
-        new ClassyMatesApp();
-    }
-}
+//package ui;
+//
+//public class Main {
+//    public static void main(String[] args) {
+//        new ClassyMatesApp();
+//    }
+//}
