@@ -28,7 +28,7 @@ public class Instructor extends User {
             Post currentPost = currentClass.getPosts().get(i);
             if (postTitle.equals(currentPost.getPostTitle())) {
                 currentClass.getPosts().remove(currentPost);
-                i--;
+                break;
             }
         }
     }
@@ -40,7 +40,7 @@ public class Instructor extends User {
             Comment currentComment = currentPost.getComments().get(i);
             if (commentBody.equals(currentComment.getCommentBody())) {
                 currentPost.getComments().remove(currentComment);
-                i--;
+                break;
             }
         }
     }

@@ -50,7 +50,7 @@ public class Student extends User {
             String userWhoPosted = currentMessage.getUserWhoPosted();
             if ((messageBody.equals(currentMessage.getMessageBody())) && (this.finalUsername.equals(userWhoPosted))) {
                 currentSubgroup.getMessages().remove(currentMessage);
-                i--;
+                break;
             }
         }
     }

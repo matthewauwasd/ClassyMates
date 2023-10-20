@@ -226,23 +226,45 @@ public class StudentTest extends UserTest {
 
     @Test
     void testLeaveClassroomStudentInSubgroup() {
-        classroom1.addSubgroup(subgroup1);
+        classroom1.addSubgroup(premadeSubgroup);
         studentA.joinClassroom(classroom1);
-        studentA.joinSubgroup(subgroup1);
+        studentA.joinSubgroup(premadeSubgroup);
         studentA.leaveClassroom(classroom1);
-        assertTrue(subgroup1.getListOfStudents().isEmpty());
+        assertTrue(classroom1.getListOfUsers().isEmpty());
+        assertTrue(premadeSubgroup.getListOfStudents().isEmpty());
     }
 
     @Test
     void testLeaveClassroomStudentInTwoSubgroup() {
-        classroom1.addSubgroup(subgroup1);
-        classroom1.addSubgroup(subgroup2);
+        classroom1.addSubgroup(premadeSubgroup);
+        classroom1.addSubgroup(premadeSubgroup2);
         studentA.joinClassroom(classroom1);
-        studentA.joinSubgroup(subgroup1);
-        studentA.joinSubgroup(subgroup2);
+        studentA.joinSubgroup(premadeSubgroup);
+        studentA.joinSubgroup(premadeSubgroup2);
         studentA.leaveClassroom(classroom1);
-        assertTrue(subgroup1.getListOfStudents().isEmpty());
-        assertTrue(subgroup2.getListOfStudents().isEmpty());
+        assertTrue(classroom1.getListOfUsers().isEmpty());
+        assertTrue(premadeSubgroup.getListOfStudents().isEmpty());
+        assertTrue(premadeSubgroup2.getListOfStudents().isEmpty());
+    }
+
+    @Test
+    void testLeaveClassroomStudentNotInSubgroup() {
+        classroom1.addSubgroup(premadeSubgroup);
+        studentA.joinClassroom(classroom1);
+        studentA.leaveClassroom(classroom1);
+        assertTrue(classroom1.getListOfUsers().isEmpty());
+        assertTrue(premadeSubgroup.getListOfStudents().isEmpty());
+    }
+
+    @Test
+    void testLeaveClassroomStudentNotInMultipleSubgroup() {
+        classroom1.addSubgroup(premadeSubgroup);
+        classroom1.addSubgroup(premadeSubgroup2);
+        studentA.joinClassroom(classroom1);
+        studentA.leaveClassroom(classroom1);
+        assertTrue(classroom1.getListOfUsers().isEmpty());
+        assertTrue(premadeSubgroup.getListOfStudents().isEmpty());
+        assertTrue(premadeSubgroup2.getListOfStudents().isEmpty());
     }
 
 }

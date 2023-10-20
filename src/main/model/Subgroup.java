@@ -50,7 +50,7 @@ public class Subgroup {
             String currentInterest = groupInterests.get(i);
             if (currentInterest.equals(interest)) {
                 groupInterests.remove(currentInterest);
-                i--;
+                break;
             }
         }
     }
