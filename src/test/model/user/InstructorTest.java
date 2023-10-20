@@ -1,6 +1,7 @@
 package model.user;
 
 import model.Classroom;
+import model.Comment;
 import model.Post;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -18,6 +19,8 @@ public class InstructorTest extends UserTest {
     Instructor instructorB;
     Post post1;
     Post post2;
+    Comment comment1;
+    Comment comment2;
 
     @BeforeEach
     void runBefore() {
@@ -31,6 +34,8 @@ public class InstructorTest extends UserTest {
         classroom2 = new Classroom("CPSC 110", 110);
         post1 = new Post(instructorA.getUsername(),"Post1","Body1");
         post2 = new Post(instructorA.getUsername(),"Post2","Body2");
+        comment1 = new Comment(instructorA.getUsername(),"Comment1");
+        comment2 = new Comment(instructorA.getUsername(),"Comment2");
     }
 
     @Test
@@ -72,6 +77,62 @@ public class InstructorTest extends UserTest {
         instructorA.deletePost(classroom1,"Post2");
         assertTrue(classroom1.getPosts().isEmpty());
     }
+
+    @Test
+    void testDeletePostNoPosts() {
+        instructorA.deletePost(classroom1,"Post1");
+        assertTrue(classroom1.getPosts().isEmpty());
+    }
+
+    @Test
+    void testDeletePostNoPostsWrongPost() {
+        instructorA.deletePost(classroom1,"PostNO");
+        assertTrue(classroom1.getPosts().isEmpty());
+    }
+
+    @Test
+    void testDeletePostWrongPost () {
+        classroom1.addPost(post1);
+        instructorA.deletePost(classroom1,"PostNO");
+        assertEquals(post1,classroom1.getPosts().get(0));
+    }
+
+    //
+    @Test
+    void testDeleteComment() {
+        post1.addComment(comment1);
+        instructorA.deleteComment(post1,"Comment1");
+        assertTrue(post1.getComments().isEmpty());
+    }
+
+    @Test
+    void testDeleteCommentTwice() {
+        post1.addComment(comment1);
+        post1.addComment(comment2);
+        instructorA.deleteComment(post1,"Comment1");
+        instructorA.deleteComment(post1,"Comment2");
+        assertTrue(post1.getComments().isEmpty());
+    }
+
+    @Test
+    void testDeleteCommentNoComments() {
+        instructorA.deleteComment(post1,"Comment1");
+        assertTrue(post1.getComments().isEmpty());
+    }
+
+    @Test
+    void testDeletePostNoCommentsWrongComment() {
+        instructorA.deleteComment(post1,"CommentNO");
+        assertTrue(post1.getComments().isEmpty());
+    }
+
+    @Test
+    void testDeletePostWrongComment () {
+        post1.addComment(comment1);
+        instructorA.deleteComment(post1,"CommentNO");
+        assertEquals(comment1,post1.getComments().get(0));
+    }
+
 
     @Test
     void testLeaveClassroomInstructor() {

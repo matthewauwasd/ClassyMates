@@ -44,6 +44,8 @@ public class Student extends User {
 
     // MODIFIES: Subgroup
     // EFFECTS: removes Message from Subgroup if entered message body matches message body in list of messages
+    //          and if the user who sent the message is deleting the message.
+    //          otherwise, do nothing
     public void deleteMessage(Subgroup currentSubgroup, String messageBody) {
         for (int i = 0; i < currentSubgroup.getMessages().size(); i++) {
             Message currentMessage = currentSubgroup.getMessages().get(i);
@@ -56,7 +58,6 @@ public class Student extends User {
     }
 
     // MODIFIES: Classroom, Subgroup
-    // TEST IF THIS WORKS, IT MIGHT NOT...
     // EFFECTS: removes current instance of User from selected Classroom
     //          if user is in Subgroup(s), remove them from subgroup(s)
     public void leaveClassroom(Classroom selectedClassroom) {
