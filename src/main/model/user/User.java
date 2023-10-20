@@ -33,9 +33,11 @@ public abstract class User {
     }
 
     // MODIFIES: Classroom
-    // EFFECTS: adds current instance of User to selected Classroom
+    // EFFECTS: adds current instance of User to selected Classroom if user isn't already in the classroom
     public void joinClassroom(Classroom selectedClassroom) {
-        selectedClassroom.getListOfUsers().add(this);
+        if (!selectedClassroom.getListOfUsers().contains(this)) {
+            selectedClassroom.getListOfUsers().add(this);
+        }
     }
 
     // MODIFIES: Classroom

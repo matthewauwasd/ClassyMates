@@ -1,6 +1,7 @@
 package model.user;
 
 import model.Classroom;
+import model.Message;
 import model.Subgroup;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -18,6 +19,8 @@ public class StudentTest extends UserTest {
     private Subgroup premadeSubgroup2;
     private String subgroup1Name = "Sub1";
     private String subgroup2Name = "Sub2";
+    private String messageBody1 = "Message1";
+    private String messageBody2 = "Message2";
 
     @BeforeEach
     void runBefore() {
@@ -59,6 +62,18 @@ public class StudentTest extends UserTest {
     @Test
     void testJoinSubgroup() {
         subgroup1 = studentA.createSubgroup(subgroup1Name);
+        studentA.joinSubgroup(subgroup1);
+        assertEquals("Sub1",subgroup1.getSubgroupName());
+        assertTrue(subgroup1.getSubgroupInterests().isEmpty());
+        assertTrue(subgroup1.getMessages().isEmpty());
+        assertEquals(1,subgroup1.getListOfStudents().size());
+        assertEquals(studentA,subgroup1.getListOfStudents().get(0));
+    }
+
+    @Test
+    void testJoinSubgroupSameGroup() {
+        subgroup1 = studentA.createSubgroup(subgroup1Name);
+        studentA.joinSubgroup(subgroup1);
         studentA.joinSubgroup(subgroup1);
         assertEquals("Sub1",subgroup1.getSubgroupName());
         assertTrue(subgroup1.getSubgroupInterests().isEmpty());
@@ -111,11 +126,81 @@ public class StudentTest extends UserTest {
         assertTrue(premadeSubgroup2.getListOfStudents().isEmpty());
     }
 
-    // CREATE TESTS FOR CREATEMESSAGE METHOD
+    @Test
+    void testCreateMessage() {
+        Message newMessage = studentA.createMessage(messageBody1);
+        assertEquals("Student1",newMessage.getUserWhoPosted());
+        assertEquals("Message1",newMessage.getMessageBody());
+    }
+
+    @Test
+    void testCreateMessageTwice() {
+        Message newMessage = studentA.createMessage(messageBody1);
+        Message newMessage2 = studentA.createMessage(messageBody2);
+        assertEquals("Student1",newMessage.getUserWhoPosted());
+        assertEquals("Message1",newMessage.getMessageBody());
+        assertEquals("Student1",newMessage2.getUserWhoPosted());
+        assertEquals("Message2",newMessage2.getMessageBody());
+    }
+
+    @Test
+    void testDeleteMessage() {
+        Message newMessage = studentA.createMessage(messageBody1);
+        premadeSubgroup.addMessage(newMessage);
+        studentA.deleteMessage(premadeSubgroup,"Message1");
+        assertTrue(premadeSubgroup.getMessages().isEmpty());
+    }
+
+    @Test
+    void testDeleteMessageTwice() {
+        Message newMessage = studentA.createMessage(messageBody1);
+        Message newMessage2 = studentA.createMessage(messageBody2);
+        premadeSubgroup.addMessage(newMessage);
+        premadeSubgroup.addMessage(newMessage2);
+        studentA.deleteMessage(premadeSubgroup,"Message1");
+        studentA.deleteMessage(premadeSubgroup,"Message2");
+        assertTrue(premadeSubgroup.getMessages().isEmpty());
+    }
+
+    @Test
+    void testDeleteMessageDifferentUser() {
+        Message newMessage = studentA.createMessage(messageBody1);
+        premadeSubgroup.addMessage(newMessage);
+        studentB.deleteMessage(premadeSubgroup,"Message1");
+        assertEquals(newMessage,premadeSubgroup.getMessages().get(0));
+    }
+
+    @Test
+    void testDeleteMessageDifferentUserWrongMessage() {
+        Message newMessage = studentA.createMessage(messageBody1);
+        premadeSubgroup.addMessage(newMessage);
+        studentA.deleteMessage(premadeSubgroup,"WrongMessage");
+        assertEquals(newMessage,premadeSubgroup.getMessages().get(0));
+    }
+
+    @Test
+    void testDeleteMessageWrongMessage() {
+        Message newMessage = studentA.createMessage(messageBody1);
+        premadeSubgroup.addMessage(newMessage);
+        studentA.deleteMessage(premadeSubgroup,"WrongMessage");
+        assertEquals(newMessage,premadeSubgroup.getMessages().get(0));
+    }
+
+    @Test
+    void testDeleteMessageNoMessages() {
+        studentA.deleteMessage(premadeSubgroup,"WrongMessage");
+        assertTrue(premadeSubgroup.getMessages().isEmpty());
+    }
 
     @Test
     void testLeaveClassroomStudent() {
         studentA.joinClassroom(classroom1);
+        studentA.leaveClassroom(classroom1);
+        assertTrue(classroom1.getListOfUsers().isEmpty());
+    }
+
+    @Test
+    void testLeaveClassroomStudentNotInClass() {
         studentA.leaveClassroom(classroom1);
         assertTrue(classroom1.getListOfUsers().isEmpty());
     }

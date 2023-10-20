@@ -3,12 +3,10 @@ package model.user;
 import model.Classroom;
 import model.Comment;
 import model.Post;
-import model.Subgroup;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class UserTest {
     protected User student1;
@@ -135,6 +133,22 @@ public class UserTest {
 
     @Test
     void testJoinClassroomInstructor() {
+        instructor1.joinClassroom(classroom1);
+        assertEquals(instructor1,classroom1.getListOfUsers().get(0));
+        assertEquals(1,classroom1.getListOfUsers().size());
+    }
+
+    @Test
+    void testJoinClassroomStudentAlreadyIn() {
+        student1.joinClassroom(classroom1);
+        student1.joinClassroom(classroom1);
+        assertEquals(student1,classroom1.getListOfUsers().get(0));
+        assertEquals(1,classroom1.getListOfUsers().size());
+    }
+
+    @Test
+    void testJoinClassroomInstructorAlreadyIn() {
+        instructor1.joinClassroom(classroom1);
         instructor1.joinClassroom(classroom1);
         assertEquals(instructor1,classroom1.getListOfUsers().get(0));
         assertEquals(1,classroom1.getListOfUsers().size());

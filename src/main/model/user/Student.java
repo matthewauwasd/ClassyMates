@@ -21,13 +21,16 @@ public class Student extends User {
     }
 
     // MODIFIES: Subgroup
-    // EFFECTS: adds current instance of Student to selected Subgroup
+    // EFFECTS: adds current instance of Student to selected Subgroup if they aren't already in the subgroup
     public void joinSubgroup(Subgroup selectedSubgroup) {
-        selectedSubgroup.getListOfStudents().add(this);
+        if (!selectedSubgroup.getListOfStudents().contains(this)) {
+            selectedSubgroup.getListOfStudents().add(this);
+        }
     }
 
     // MODIFIES: Subgroup
     // EFFECTS: removes current instance of Student from selected Subgroup
+    //          Student has to be in subgroup to call this method
     public void leaveSubgroup(Subgroup selectedSubgroup) {
         selectedSubgroup.getListOfStudents().remove(this);
     }
@@ -44,7 +47,8 @@ public class Student extends User {
     public void deleteMessage(Subgroup currentSubgroup, String messageBody) {
         for (int i = 0; i < currentSubgroup.getMessages().size(); i++) {
             Message currentMessage = currentSubgroup.getMessages().get(i);
-            if (messageBody.equals(currentMessage.getMessageBody())) {
+            String userWhoPosted = currentMessage.getUserWhoPosted();
+            if ((messageBody.equals(currentMessage.getMessageBody())) && (this.finalUsername.equals(userWhoPosted))){
                 currentSubgroup.getMessages().remove(currentMessage);
                 i--;
             }
@@ -58,9 +62,7 @@ public class Student extends User {
     public void leaveClassroom(Classroom selectedClassroom) {
         List<Subgroup> subgroups = selectedClassroom.getSubgroups();
         for (Subgroup s : subgroups) {
-            if (s.getListOfStudents().contains(this)) {
-                s.getListOfStudents().remove(this);
-            }
+            s.getListOfStudents().remove(this);
         }
         selectedClassroom.getListOfUsers().remove(this);
     }

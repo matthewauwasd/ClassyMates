@@ -34,7 +34,7 @@ public class Subgroup {
                 break;
             }
             for (String gi : groupInterests) {
-                if (li.equals(interest) && (li != gi)) {
+                if (li.equals(interest) && (!li.equals(gi))) {
                     groupInterests.add(interest);
                     break;
                 }
@@ -46,12 +46,6 @@ public class Subgroup {
     // MODIFIES: this
     // EFFECTS: if given interest is in group interests, removes interest from group interests
     public void removeSubgroupInterest(String interest) {
-//        for (String s : groupInterests) {
-//                if (s.equals(interest)) {
-//                    groupInterests.remove(s);
-//                }
-//
-//        }
         for (int i = 0; i < groupInterests.size(); i++) {
             String currentInterest = groupInterests.get(i);
             if (currentInterest.equals(interest)) {
@@ -59,6 +53,12 @@ public class Subgroup {
                 i--;
             }
         }
+    }
+
+    // MODIFIES: this
+    // EFFECTS: adds message to list of messages
+    public void addMessage(Message m) {
+        messages.add(m);
     }
 
     // getters
