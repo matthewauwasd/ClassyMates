@@ -48,7 +48,7 @@ public class Student extends User {
         for (int i = 0; i < currentSubgroup.getMessages().size(); i++) {
             Message currentMessage = currentSubgroup.getMessages().get(i);
             String userWhoPosted = currentMessage.getUserWhoPosted();
-            if ((messageBody.equals(currentMessage.getMessageBody())) && (this.finalUsername.equals(userWhoPosted))){
+            if ((messageBody.equals(currentMessage.getMessageBody())) && (this.finalUsername.equals(userWhoPosted))) {
                 currentSubgroup.getMessages().remove(currentMessage);
                 i--;
             }
