@@ -10,6 +10,7 @@ import java.util.List;
 // Has basic user privileges as well as those specific to instructors.
 public class Instructor extends User {
 
+    // EFFECTS: creates instructor of username, password, and user type
     public Instructor(String username, String password, String userType) {
         super(username,password,userType);
     }

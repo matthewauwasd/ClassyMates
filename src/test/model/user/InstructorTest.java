@@ -85,19 +85,40 @@ public class InstructorTest extends UserTest {
     }
 
     @Test
+    void testDeletePostNoPostsTwice() {
+        instructorA.deletePost(classroom1,"Post1");
+        instructorA.deletePost(classroom1,"Post1");
+        assertTrue(classroom1.getPosts().isEmpty());
+    }
+
+    @Test
     void testDeletePostNoPostsWrongPost() {
         instructorA.deletePost(classroom1,"PostNO");
         assertTrue(classroom1.getPosts().isEmpty());
     }
 
     @Test
-    void testDeletePostWrongPost () {
+    void testDeletePostNoPostsWrongPostTwice() {
+        instructorA.deletePost(classroom1,"PostNO");
+        instructorA.deletePost(classroom1,"PostNB");
+        assertTrue(classroom1.getPosts().isEmpty());
+    }
+
+    @Test
+    void testDeletePostWrongPost() {
         classroom1.addPost(post1);
         instructorA.deletePost(classroom1,"PostNO");
         assertEquals(post1,classroom1.getPosts().get(0));
     }
 
-    //
+    @Test
+    void testDeletePostWrongPostTwice() {
+        classroom1.addPost(post1);
+        instructorA.deletePost(classroom1,"PostNO");
+        instructorA.deletePost(classroom1,"PostNB");
+        assertEquals(post1,classroom1.getPosts().get(0));
+    }
+
     @Test
     void testDeleteComment() {
         post1.addComment(comment1);
@@ -121,15 +142,37 @@ public class InstructorTest extends UserTest {
     }
 
     @Test
-    void testDeletePostNoCommentsWrongComment() {
+    void testDeleteCommentNoCommentsTwice() {
+        instructorA.deleteComment(post1,"Comment1");
+        instructorA.deleteComment(post1,"Comment1");
+        assertTrue(post1.getComments().isEmpty());
+    }
+
+    @Test
+    void testDeleteCommentNoCommentsWrongComment() {
         instructorA.deleteComment(post1,"CommentNO");
         assertTrue(post1.getComments().isEmpty());
     }
 
     @Test
-    void testDeletePostWrongComment () {
+    void testDeleteCommentNoCommentsWrongCommentTwice() {
+        instructorA.deleteComment(post1,"CommentNO");
+        instructorA.deleteComment(post1,"CommentNB");
+        assertTrue(post1.getComments().isEmpty());
+    }
+
+    @Test
+    void testDeleteCommentWrongComment() {
         post1.addComment(comment1);
         instructorA.deleteComment(post1,"CommentNO");
+        assertEquals(comment1,post1.getComments().get(0));
+    }
+
+    @Test
+    void testDeleteCommentWrongCommentTwice() {
+        post1.addComment(comment1);
+        instructorA.deleteComment(post1,"CommentNO");
+        instructorA.deleteComment(post1,"CommentNB");
         assertEquals(comment1,post1.getComments().get(0));
     }
 

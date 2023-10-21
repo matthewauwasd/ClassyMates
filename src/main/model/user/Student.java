@@ -2,14 +2,19 @@ package model.user;
 
 import model.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 // Represents a student with a username, password, and user type of student.
 // Has basic user privileges as well as those specific to students.
 public class Student extends User {
 
+    List<Subgroup> subgroupsJoined;
+
+    // EFFECTS: creates student of username, password, and user type
     public Student(String username, String password, String userType) {
         super(username,password,userType);
+        subgroupsJoined = new ArrayList<Subgroup>();
     }
 
     // REQUIRES: subgroupName cannot be an empty String
@@ -21,10 +26,12 @@ public class Student extends User {
     }
 
     // MODIFIES: Subgroup
-    // EFFECTS: adds current instance of Student to selected Subgroup if they aren't already in the subgroup
+    // EFFECTS: adds current instance of Student to selected Subgroup if they aren't already in the subgroup,
+    //          then adds subgroup to student's list of joined subgroups
     public void joinSubgroup(Subgroup selectedSubgroup) {
         if (!selectedSubgroup.getListOfStudents().contains(this)) {
             selectedSubgroup.getListOfStudents().add(this);
+            subgroupsJoined.add(selectedSubgroup);
         }
     }
 
@@ -33,6 +40,7 @@ public class Student extends User {
     //          Student has to be in subgroup to call this method
     public void leaveSubgroup(Subgroup selectedSubgroup) {
         selectedSubgroup.getListOfStudents().remove(this);
+        this.subgroupsJoined.remove(selectedSubgroup);
     }
 
     // MODIFIES: Message
@@ -64,8 +72,15 @@ public class Student extends User {
         List<Subgroup> subgroups = selectedClassroom.getSubgroups();
         for (Subgroup s : subgroups) {
             s.getListOfStudents().remove(this);
+            this.subgroupsJoined.remove(s);
         }
         selectedClassroom.getListOfUsers().remove(this);
+    }
+
+    // getter
+
+    public List<Subgroup> getSubgroupsJoined() {
+        return subgroupsJoined;
     }
 
 }
