@@ -1,9 +1,6 @@
 package ui;
 
-import model.Classroom;
-import model.Comment;
-import model.Post;
-import model.Subgroup;
+import model.*;
 import model.user.Instructor;
 import model.user.Student;
 
@@ -501,7 +498,7 @@ public class ClassyMatesApp {
             String command = input.next();
 
             if (command.equals("a")) {
-                //selectPostStudent();
+                selectPostStudent();
             } else if (command.equals("b")) {
                 running = false;
             } else {
@@ -528,85 +525,112 @@ public class ClassyMatesApp {
         for (Subgroup sg : currentStudent.getSubgroupsJoined()) {
             if (command.equals(sg.getSubgroupName())) {
                 currentSubgroup = sg;
-                //subgroupView();
+                subgroupView(currentSubgroup);
             }
         }
     }
 
-//        System.out.println("\nWhich post would you like to view?");
-//        String viewWhichPost = input.next();
-//
-//        for (Post p : currentClassroom.getPosts()) {
-//            if (viewWhichPost.equals(p.getPostTitle())) {
-//                currentPost = p;
-//                postView(currentPost);
-//            }
-//        }
-//    }
+    // EFFECTS: displays options for actions in subgroup
+    private void subgroupView(Subgroup sg) {
+        Boolean running = true;
+        while (running) {
 
-//    // EFFECTS: displays post title, body, and comments associated with post,
-//    // moves user to appropriate method based on user input
-//    private void postView(Post p) {
-//        boolean running = true;
-//
-//        while (running) {
-//            System.out.println("\nYou are viewing post: " + p.getPostTitle());
-//
-//            System.out.println("\nPost Title: " + p.getPostTitle());
-//            System.out.println("\n" + p.getPostBody());
-//
-//            System.out.println("\n\nComments:");
-//            if (p.getComments().isEmpty()) {
-//                System.out.println("There are currently no comments.");
-//            } else {
-//                for (Comment c : p.getComments()) {
-//                    System.out.println(c.getCommentBody());
-//                }
-//            }
-//            postViewOptions();
-//
-//            postViewChoices();
-//        }
-//    }
-//
-//    // MODIFIES: this, Post
-//    // EFFECTS: creates new comment based on user input and adds it to associated Post
-//    private void createComment() {
-//        System.out.println("What would you like to comment?");
-//        String enteredComment = input.next();
-//        Comment newComment = new Comment(enteredComment);
-//        currentPost.addComment(newComment);
-//    }
-//
-//    // EFFECTS: displays choices available in postView method
-//    private void postViewOptions() {
-//        System.out.println("\nWhat would you like to do?");
-//        System.out.println("\na - Create a comment");
-//        System.out.println("b - Delete a comment");
-//        System.out.println("c - Go back");
-//    }
-//
-//    // EFFECTS: moves user to appropriate method based on user input
-//    private void postViewChoices() {
-//        String classroomChoice = input.next();
-//
-//        if (classroomChoice.equals("a")) {
-//            createComment();
-//        } else if (classroomChoice.equals("b")) {
-//            deleteComment();
-//        } else if (classroomChoice.equals("c")) {
-//            classroomView(currentClassroom);
-//        } else {
-//            System.out.println("Please enter a valid input.");
-//        }
-//    }
-//
-//    // MODIFIES: this
-//    // EFFECTS: deletes comment that matches String input
-//    private void deleteComment() {
-//        System.out.println("Which comment would you like to delete?");
-//        String enteredComment = input.next();
-//        Comment newComment = new Comment(enteredComment);
-//        currentPost.deleteComment(enteredComment);
-//    }
+            System.out.println("\n\nSubgroup: " + sg.getSubgroupName());
+            if (sg.getMessages().isEmpty()) {
+                System.out.println("There are currently no messages.");
+            } else {
+                for (Message m : sg.getMessages()) {
+                    System.out.println("\n" + m.getUserWhoPosted() + ":");
+                    System.out.println(m.getMessageBody());
+                }
+            }
+        }
+    }
+
+    // EFFECTS: sets current post based on instructor input
+    private void selectPostStudent() {
+        Boolean running = true;
+        while (running) {
+
+            if (currentClassroom.getPosts().isEmpty()) {
+                System.out.println("There are no posts.");
+                break;
+            }
+
+            System.out.println("\nHere are the current posts:");
+            for (Post p : currentClassroom.getPosts()) {
+                System.out.println("\n" + p.getUserWhoPosted() + " posted:");
+                System.out.println(p.getPostTitle());
+            }
+            System.out.println("\nWhich post would you like to view?");
+            String command = input.next();
+
+            for (Post p : currentClassroom.getPosts()) {
+                if (command.equals(p.getPostTitle())) {
+                    currentPost = p;
+                    studentPostView(currentPost);
+                    running = false;
+                }
+            }
+        }
+    }
+
+    // EFFECTS: displays options for actions in post
+    private void studentPostView(Post p) {
+        boolean running = true;
+
+        while (running) {
+            System.out.println("\nYou are viewing post: " + p.getPostTitle());
+
+            System.out.println("\nPost Title: " + p.getPostTitle());
+            System.out.println("\n" + p.getPostBody());
+            System.out.println("\nPosted by " + p.getUserWhoPosted());
+
+            System.out.println("\n\nComments:");
+            if (p.getComments().isEmpty()) {
+                System.out.println("There are currently no comments.");
+            } else {
+                for (Comment c : p.getComments()) {
+                    System.out.println("\n" + c.getUserWhoPosted() + " posted:");
+                    System.out.println(c.getCommentBody());
+                }
+            }
+            postViewOptionsStudent();
+            postViewChoicesStudent();
+        }
+    }
+
+    // EFFECTS: displays choices available in postView method
+    private void postViewOptionsStudent() {
+        System.out.println("\nWhat would you like to do?");
+        System.out.println("\na - Create a comment");
+        System.out.println("b - Go back");
+    }
+
+    // EFFECTS: moves user to appropriate method based on user input
+    private void postViewChoicesStudent() {
+        Boolean running = true;
+
+        while (running) {
+            String postViewChoice = input.next();
+
+            if (postViewChoice.equals("a")) {
+                createCommentStudent();
+                running = false;
+            } else if (postViewChoice.equals("b")) {
+                viewPostsStudent();
+            } else {
+                System.out.println("Please enter a valid input.");
+            }
+        }
+    }
+
+    // MODIFIES: this, Post
+    // EFFECTS: creates new comment based on user input and adds it to associated Post
+    private void createCommentStudent() {
+        System.out.println("What would you like to comment?");
+        String enteredComment = input.next();
+        Comment newComment = new Comment(currentStudent.getUsername(),enteredComment);
+        currentPost.addComment(newComment);
+    }
 }
