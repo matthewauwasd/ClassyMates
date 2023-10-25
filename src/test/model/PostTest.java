@@ -1,6 +1,5 @@
 package model;
 
-import model.user.Instructor;
 import model.user.Student;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -14,7 +13,6 @@ public class PostTest {
     private Student student1;
     private Student student2;
     private Student student3;
-    private Instructor instructor1;
     private Post post1;
     private String post1Title = "Question Title?";
     private String post1Body = "I have a question...";
@@ -25,7 +23,6 @@ public class PostTest {
 
     @BeforeEach
     void runBefore() {
-        instructor1 = new Instructor("Instructor1","12345","Instructor");
         student1 = new Student("Student1","678910","Student");
         student2 = new Student("Student2","Hey","Student");
         student3 = new Student("Student3","Bye","Student");

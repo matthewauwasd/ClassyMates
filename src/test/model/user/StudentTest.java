@@ -6,6 +6,9 @@ import model.Subgroup;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -15,6 +18,7 @@ public class StudentTest extends UserTest {
     private Student studentB;
     private Subgroup subgroup1;
     private Subgroup subgroup2;
+    private List<Subgroup> subgroupList = new ArrayList<Subgroup>();
     private Subgroup premadeSubgroup;
     private Subgroup premadeSubgroup2;
     private String subgroup1Name = "Sub1";
@@ -30,10 +34,10 @@ public class StudentTest extends UserTest {
         student1 = studentA;
         studentB = new Student(student2username,student2password,studentType);
         student2 = studentB;
-        instructor1 = new Instructor(instructor1username,instructor1password,instructorType);
-        instructor2 = new Instructor(instructor2username,instructor2password,instructorType);
         premadeSubgroup = new Subgroup("Premade");
         premadeSubgroup2 = new Subgroup("Premade2");
+        subgroupList.add(premadeSubgroup);
+        subgroupList.add(premadeSubgroup2);
     }
 
     @Test
@@ -115,7 +119,7 @@ public class StudentTest extends UserTest {
     @Test
     void testLeaveSubgroup() {
         studentA.joinSubgroup(premadeSubgroup);
-        studentA.leaveSubgroup(premadeSubgroup);
+        studentA.leaveSubgroup(subgroupList, "Premade");
         assertEquals("Premade",premadeSubgroup.getSubgroupName());
         assertTrue(premadeSubgroup.getSubgroupInterests().isEmpty());
         assertTrue(premadeSubgroup.getMessages().isEmpty());
@@ -127,8 +131,8 @@ public class StudentTest extends UserTest {
     void testLeaveSubgroupTwoSubgroups() {
         studentA.joinSubgroup(premadeSubgroup);
         studentA.joinSubgroup(premadeSubgroup2);
-        studentA.leaveSubgroup(premadeSubgroup);
-        studentA.leaveSubgroup(premadeSubgroup2);
+        studentA.leaveSubgroup(subgroupList,"Premade");
+        studentA.leaveSubgroup(subgroupList,"Premade2");
         assertEquals("Premade",premadeSubgroup.getSubgroupName());
         assertTrue(premadeSubgroup.getSubgroupInterests().isEmpty());
         assertTrue(premadeSubgroup.getMessages().isEmpty());

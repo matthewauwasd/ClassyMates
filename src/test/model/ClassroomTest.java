@@ -1,6 +1,5 @@
 package model;
 
-import model.user.Instructor;
 import model.user.Student;
 import model.user.User;
 import org.junit.jupiter.api.BeforeEach;
@@ -23,17 +22,14 @@ class ClassroomTest {
     private String post2Title = "Question 3";
     private String post2Body= "How do you do this?";
     private Student student1;
-    private Instructor instructor1;
     private Subgroup subgroup1;
     private Subgroup subgroup2;
 
     @BeforeEach
     void runBefore() {
         student1 = new Student("Gage","Waltuh","Student");
-        instructor1 = new Instructor("Prof","MATH","Instructor");
         course1 = new Classroom(course1Name,course1ID);
         post1 = new Post(student1.getUsername(),post1Title,post1Body);
-        post2 = new Post(instructor1.getUsername(),post2Title,post2Body);
         subgroup1 = new Subgroup("The Bois");
         subgroup2 = new Subgroup("Flowers");
     }

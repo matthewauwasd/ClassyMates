@@ -38,9 +38,15 @@ public class Student extends User {
     // MODIFIES: Subgroup
     // EFFECTS: removes current instance of Student from selected Subgroup
     //          Student has to be in subgroup to call this method
-    public void leaveSubgroup(Subgroup selectedSubgroup) {
-        selectedSubgroup.getListOfStudents().remove(this);
-        this.subgroupsJoined.remove(selectedSubgroup);
+    public void leaveSubgroup(List<Subgroup> subgroups, String subgroupName) {
+        for (int i = 0; i < subgroups.size(); i++) {
+            Subgroup currentSubgroup = subgroups.get(i);
+            if (subgroupName.equals(currentSubgroup.getSubgroupName())) {
+                subgroupsJoined.remove(currentSubgroup);
+                currentSubgroup.getListOfStudents().remove(this);
+                break;
+            }
+        }
     }
 
     // MODIFIES: Message
