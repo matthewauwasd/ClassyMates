@@ -1,8 +1,11 @@
 package model;
 
 
+import org.json.JSONObject;
+import persistence.Writable;
+
 // Represents a comment that contains a comment body
-public class Comment {
+public class Comment implements Writable {
     private final String userWhoPosted;
     private final String finalCommentBody;
 
@@ -21,6 +24,14 @@ public class Comment {
 
     public String getUserWhoPosted() {
         return userWhoPosted;
+    }
+
+    @Override
+    public JSONObject toJson() {
+        JSONObject json = new JSONObject();
+        json.put("userWhoPosted", userWhoPosted);
+        json.put("commentBody", finalCommentBody);
+        return json;
     }
 
 }

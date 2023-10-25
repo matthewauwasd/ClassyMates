@@ -4,24 +4,23 @@ import model.*;
 import model.user.Instructor;
 import model.user.Student;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 
 // ClassyMates application
 public class ClassyMatesApp {
     private Scanner input;
-    private List<Classroom> classroomList = new ArrayList<>();
+    private Structure structure;
     private Classroom currentClassroom;
     private Post currentPost;
-    private Student currentStudent;
     private Instructor currentInstructor;
+    private Student currentStudent;
     private Subgroup currentSubgroup;
     private Classroom modelClassroom = new Classroom("CPSC 210", 210);
 
     // EFFECTS: runs ClassyMates application
     public ClassyMatesApp() {
-        classroomList.add(modelClassroom);
+        structure = new Structure();
+        structure.addClassroom(modelClassroom);
         runClassyMates();
     }
 
@@ -125,8 +124,7 @@ public class ClassyMatesApp {
             className = checkIfString();
             classID = checkIfInt();
 
-            Classroom classroom = new Classroom(className, classID);
-            classroomList.add(classroom);
+            structure.addClassroom(new Classroom(className, classID));
 
             running = false;
         }
@@ -173,14 +171,14 @@ public class ClassyMatesApp {
     // EFFECTS: displays classrooms made and prompts instructors to go into a classroom
     private void viewClassroomInstructor() {
         System.out.println("\nType the classroom's ID would you like to view:");
-        for (Classroom c : classroomList) {
+        for (Classroom c : structure.getClassroomList()) {
             System.out.print("Classroom Name: " + c.getCourseName() + ", ");
             System.out.println("Classroom ID: " + c.getCourseID() + " ");
         }
 
         int viewWhichClassroom = input.nextInt();
 
-        for (Classroom c : classroomList) {
+        for (Classroom c : structure.getClassroomList()) {
             if (viewWhichClassroom == c.getCourseID()) {
                 currentClassroom = c;
                 classroomViewInstructor(currentClassroom);
@@ -421,14 +419,14 @@ public class ClassyMatesApp {
     // EFFECTS: displays classrooms made and prompts student to go into a classroom
     private void viewClassroomStudent() {
         System.out.println("\nType the classroom's ID would you like to view:");
-        for (Classroom c : classroomList) {
+        for (Classroom c : structure.getClassroomList()) {
             System.out.print("Classroom Name: " + c.getCourseName() + ", ");
             System.out.println("Classroom ID: " + c.getCourseID() + " ");
         }
 
         int viewWhichClassroom = input.nextInt();
 
-        for (Classroom c : classroomList) {
+        for (Classroom c : structure.getClassroomList()) {
             if (viewWhichClassroom == c.getCourseID()) {
                 currentClassroom = c;
                 classroomViewStudent(currentClassroom);
@@ -515,12 +513,57 @@ public class ClassyMatesApp {
         currentClassroom.addSubgroup(newSubgroup);
     }
 
-    // EFFECTS: displays subgroups user has joined
+    // EFFECTS: displays all subgroups in classroom
     private void viewSubgroups() {
-        for (Subgroup sg : currentStudent.getSubgroupsJoined()) {
-            System.out.println(sg);
+        Boolean running = true;
+
+        while (running) {
+            System.out.println("\nHere are the classroom's subgroups:");
+            for (Subgroup sg : currentClassroom.getSubgroups()) {
+                System.out.println(sg.getSubgroupName());
+            }
+            System.out.println("\nWhat would you like to do?");
+            System.out.println("a - Join a subgroup");
+            System.out.println("b - Enter joined subgroups");
+            System.out.println("c - Go back");
+            String command = input.next();
+
+            if (command.equals("a")) {
+                joinSubgroup();
+            } else if (command.equals("b")) {
+                viewJoinedSubgroups();
+            } else if (command.equals("c")) {
+                running = false;
+            } else {
+                System.out.println("Please enter a valid input.");
+            }
         }
-        System.out.println("Which subgroup would you like to go into?");
+    }
+
+    // MODIFIES: Student
+    // EFFECTS: allows user to join entered subgroup
+    private void joinSubgroup() {
+        System.out.println("\nHere are the classroom's subgroups:");
+        for (Subgroup sg : currentClassroom.getSubgroups()) {
+            System.out.println(sg.getSubgroupName());
+        }
+        System.out.println("\nPlease enter the subgroup you would like to join.");
+        String command = input.next();
+
+        for (Subgroup sg : currentClassroom.getSubgroups()) {
+            if (command.equals(sg.getSubgroupName())) {
+                currentStudent.joinSubgroup(sg);
+            }
+        }
+    }
+
+    // EFFECTS: displays subgroups user has joined
+    private void viewJoinedSubgroups() {
+        System.out.println("\nHere are the subgroups you have joined:");
+        for (Subgroup sg : currentStudent.getSubgroupsJoined()) {
+            System.out.println(sg.getSubgroupName());
+        }
+        System.out.println("\nWhich subgroup would you like to go into?");
         String command = input.next();
         for (Subgroup sg : currentStudent.getSubgroupsJoined()) {
             if (command.equals(sg.getSubgroupName())) {
@@ -534,17 +577,34 @@ public class ClassyMatesApp {
     private void subgroupView(Subgroup sg) {
         Boolean running = true;
         while (running) {
+            System.out.println("\nSubgroup " + sg.getSubgroupName());
+            for (Message m : sg.getMessages()) {
+                System.out.println("\n" + m.getUserWhoPosted() + ":");
+                System.out.println(m.getMessageBody());
+            }
 
-            System.out.println("\n\nSubgroup: " + sg.getSubgroupName());
-            if (sg.getMessages().isEmpty()) {
-                System.out.println("There are currently no messages.");
+            System.out.println("What would you like to do?");
+            System.out.println("a - Send a message");
+            System.out.println("b - Go back");
+            String command = input.next();
+
+            if (command.equals("a")) {
+                createMessageStudent();
+            }else if (command.equals("b")) {
+                running = false;
             } else {
-                for (Message m : sg.getMessages()) {
-                    System.out.println("\n" + m.getUserWhoPosted() + ":");
-                    System.out.println(m.getMessageBody());
-                }
+                System.out.println("Please enter a valid input.");
             }
         }
+    }
+
+    // MODIFIES: this, Subgroup
+    // EFFECTS: creates new message based on user input and adds it to associated Subgroup
+    private void createMessageStudent() {
+        System.out.println("What would you like to say?");
+        String message = input.next();
+        Message newMessage = new Message(currentStudent.getUsername(),message);
+        currentSubgroup.addMessage(newMessage);
     }
 
     // EFFECTS: sets current post based on instructor input

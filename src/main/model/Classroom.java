@@ -1,13 +1,16 @@
 package model;
 
 import model.user.User;
+import org.json.JSONArray;
+import org.json.JSONObject;
+import persistence.Writable;
 
 import java.util.ArrayList;
 import java.util.List;
 
 
 // Represents a classroom that has a course name, course ID, and list of posts
-public class Classroom {
+public class Classroom implements Writable {
     private final String finalCourseName;
     private final int finalCourseID;
     private List<Post> posts;
@@ -58,6 +61,38 @@ public class Classroom {
 
     public List<User> getListOfUsers() {
         return listOfUsers;
+    }
+
+    @Override
+    public JSONObject toJson() {
+        JSONObject json = new JSONObject();
+        json.put("courseName", finalCourseName);
+        json.put("courseID", finalCourseID);
+        json.put("posts", postsToJson());
+        json.put("subgroups", subgroupsToJson());
+        return json;
+    }
+
+    // EFFECTS: returns posts in this classroom as a JSON array
+    private JSONArray postsToJson() {
+        JSONArray jsonArray = new JSONArray();
+
+        for (Post p : posts) {
+            jsonArray.put(p.toJson());
+        }
+
+        return jsonArray;
+    }
+
+    // EFFECTS: returns subgroups in this classroom as a JSON array
+    private JSONArray subgroupsToJson() {
+        JSONArray jsonArray = new JSONArray();
+
+        for (Subgroup sg : subgroups) {
+            jsonArray.put(sg.toJson());
+        }
+
+        return jsonArray;
     }
 
 }

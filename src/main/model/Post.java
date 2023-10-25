@@ -1,16 +1,18 @@
 package model;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+import persistence.Writable;
+
 import java.util.ArrayList;
 import java.util.List;
 
 
 // Represents a post that has a title, a body, and a list of comments
-public class Post {
+public class Post implements Writable {
     private final String finalPostTitle;
     private final String finalPostBody;
     private final String userWhoPosted;
-    //private final int POST_ID;
-    // POST ID will be count++;
     private List<Comment> comments;
 
     // REQUIRES: postTitle and postBody must not be empty Strings
@@ -46,5 +48,26 @@ public class Post {
 
     public String getUserWhoPosted() {
         return userWhoPosted;
+    }
+
+    @Override
+    public JSONObject toJson() {
+        JSONObject json = new JSONObject();
+        json.put("postTitle", finalPostTitle);
+        json.put("postBody", finalPostBody);
+        json.put("userWhoPosted", userWhoPosted);
+        json.put("comments", commentsToJson());
+        return json;
+    }
+
+    // EFFECTS: returns comments in this post as a JSON array
+    private JSONArray commentsToJson() {
+        JSONArray jsonArray = new JSONArray();
+
+        for (Comment c : comments) {
+            jsonArray.put(c.toJson());
+        }
+
+        return jsonArray;
     }
 }

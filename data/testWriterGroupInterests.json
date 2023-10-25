@@ -1,0 +1,27 @@
+{
+  "classrooms": [
+    {
+      "courseName": "CPSC 210",
+      "courseID": "210",
+      "posts": [],
+      "subgroups": [
+        {
+          "subgroupName": "SGName",
+          "messages": [
+            {
+              "userWhoPosted": "Me",
+              "messageBody": "Message1"
+            },
+            {
+              "userWhoPosted": "You",
+              "messageBody": "Message2"
+            }
+          ],
+          "groupInterests": [
+            "Anime","Art"
+          ]
+        }
+      ]
+    }
+  ]
+}

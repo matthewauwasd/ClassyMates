@@ -1,13 +1,16 @@
 package model;
 
 import model.user.Student;
+import org.json.JSONArray;
+import org.json.JSONObject;
+import persistence.Writable;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 // Represents a subgroup with a name, a list of subgroup interests, and a list of messages
-public class Subgroup {
+public class Subgroup implements Writable {
     private final String finalSubgroupName;
     private List<String> groupInterests;
     private List<Message> messages;
@@ -77,6 +80,37 @@ public class Subgroup {
 
     public List<Student> getListOfStudents() {
         return students;
+    }
+
+    @Override
+    public JSONObject toJson() {
+        JSONObject json = new JSONObject();
+        json.put("subgroupName", finalSubgroupName);
+        json.put("messages", messagesToJson());
+        json.put("groupInterests", groupInterestsToJson());
+        return json;
+    }
+
+    // EFFECTS: returns messages in this subgroup as a JSON array
+    private JSONArray messagesToJson() {
+        JSONArray jsonArray = new JSONArray();
+
+        for (Message m : messages) {
+            jsonArray.put(m.toJson());
+        }
+
+        return jsonArray;
+    }
+
+    // EFFECTS: returns group interests in this subgroup as a JSON array
+    private JSONArray groupInterestsToJson() {
+        JSONArray jsonArray = new JSONArray();
+
+        for (String str : groupInterests) {
+            jsonArray.put(str);
+        }
+
+        return jsonArray;
     }
 
 }

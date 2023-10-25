@@ -1,7 +1,10 @@
 package model;
 
+import org.json.JSONObject;
+import persistence.Writable;
+
 // Represents a message with a message body
-public class Message {
+public class Message implements Writable {
     private final String userWhoPosted;
     private final String finalMessageBody;
 
@@ -20,6 +23,14 @@ public class Message {
 
     public String getUserWhoPosted() {
         return userWhoPosted;
+    }
+
+    @Override
+    public JSONObject toJson() {
+        JSONObject json = new JSONObject();
+        json.put("userWhoPosted", userWhoPosted);
+        json.put("messageBody", finalMessageBody);
+        return json;
     }
 
 }
