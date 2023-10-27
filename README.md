@@ -17,32 +17,27 @@ creating the ability to link them together through the classes they are taking.
 
 ### Application's Abilities
 
-This application allows professors to **create class-sized groups** called **Classrooms** that correspond to their 
-appropriate course. 
+This application allows students to post questions and interact with each other in **classrooms**.
 
-In these groups, professors, TAs and students are allowed to discuss course-related material through **posts**.
+Classrooms have both posts, and something called **subgroups**.
 
-Students can create groups within these classes (called **subgroups**) where more intimate social interactions can 
-take place. Professors will not be able to access these subgroups. Students can choose from a list and assign 
-**interests** to subgroups. This will allow other students to find groups of people who are interested
-in the same things.
+These subgroups, which students can create, are where more intimate social interactions can 
+take place. Subgroups are designed to foster a more casual environment, that encourages non-course related discussions.
 
 Classrooms will contain **posts** with the ability for users to **comment** in those posts, 
 while subgroups will contain messages.
 
 ### Target Audience
 
-This app can be used by the following:
-- Professors
-- TAs
-- Students
+This app is designed for students, especially those who want to connect with classmates.
 
 ### My Interest in this Project
 
 Currently, official class-discussion boards lack the ability to form any social connections with other students in
 those classes. On top of that, forming connections in-person is challenging, especially for introverts like me. I want
 to make this application to help students connect with each other while also having an environment where they can
-discuss class-related topics.
+discuss class-related topics. This will be a project that I will work on for the foreseeable future, as I would
+like to see this concept be fully fleshed out.
 
 *Aside: I noticed that in the classes in which I have friends I can talk to, I have enjoyed the class more, and also
 done better academically. Having friends in your classes really helps to create a better learning environment.*

@@ -60,89 +60,88 @@ public class JsonReader {
         String courseName = jsonObject.getString("courseName");
         int courseID = jsonObject.getInt("courseID");
         Classroom cl = new Classroom(courseName,courseID);
-        addPosts(str, cl, jsonObject);
-        addSubgroups(str, cl, jsonObject);
+        str.addClassroom(cl);
+        addPosts(cl, jsonObject);
+        addSubgroups(cl, jsonObject);
     }
 
     // MODIFIES: Structure
     // EFFECTS: parses classrooms from JSON object and adds them to structure
-    private void addPosts(Structure str, Classroom cl, JSONObject jsonObject) {
+    private void addPosts(Classroom cl, JSONObject jsonObject) {
         JSONArray jsonArray = jsonObject.getJSONArray("posts");
         for (Object json : jsonArray) {
             JSONObject nextPost = (JSONObject) json;
-            addPost(str, cl, nextPost);
+            addPost(cl, nextPost);
         }
     }
 
     // MODIFIES: Structure
     // EFFECTS: parses classrooms from JSON object and adds them to structure
-    private void addPost(Structure str, Classroom cl, JSONObject jsonObject) {
+    private void addPost(Classroom cl, JSONObject jsonObject) {
         String postTitle = jsonObject.getString("postTitle");
         String postBody = jsonObject.getString("postBody");
         String userWhoPosted = jsonObject.getString("userWhoPosted");
         Post p = new Post(userWhoPosted,postTitle,postBody);
-        addComments(str, cl, p, jsonObject);
+        cl.addPost(p);
+        addComments(p, jsonObject);
     }
 
 
     // MODIFIES: Post
     // EFFECTS: parses comment from JSON object and adds it to post
-    private void addComments(Structure str, Classroom cl, Post p, JSONObject jsonObject) {
+    private void addComments(Post p, JSONObject jsonObject) {
         JSONArray jsonArray = jsonObject.getJSONArray("comments");
         for (Object json : jsonArray) {
             JSONObject nextComment = (JSONObject) json;
-            addComment(str, cl, p, nextComment);
+            addComment(p, nextComment);
         }
     }
 
     // MODIFIES: Post
     // EFFECTS: parses comment from JSON object and adds it to post
-    private void addComment(Structure str, Classroom cl, Post p, JSONObject jsonObject) {
+    private void addComment(Post p, JSONObject jsonObject) {
         String userWhoPosted = jsonObject.getString("userWhoPosted");
         String commentBody = jsonObject.getString("commentBody");
         Comment comment = new Comment(userWhoPosted, commentBody);
-        str.addClassroom(cl);
-        cl.addPost(p);
         p.addComment(comment);
     }
 
     // MODIFIES: Structure
     // EFFECTS: parses classrooms from JSON object and adds them to structure
-    private void addSubgroups(Structure str, Classroom cl, JSONObject jsonObject) {
+    private void addSubgroups(Classroom cl, JSONObject jsonObject) {
         JSONArray jsonArray = jsonObject.getJSONArray("subgroups");
         for (Object json : jsonArray) {
             JSONObject nextSubgroup = (JSONObject) json;
-            addSubgroup(str, cl, nextSubgroup);
+            addSubgroup(cl, nextSubgroup);
         }
     }
 
     // MODIFIES: Structure
     // EFFECTS: parses classrooms from JSON object and adds them to structure
-    private void addSubgroup(Structure str, Classroom cl, JSONObject jsonObject) {
+    private void addSubgroup(Classroom cl, JSONObject jsonObject) {
         String subgroupName = jsonObject.getString("subgroupName");
         Subgroup sg = new Subgroup(subgroupName);
-        addMessages(str, cl, sg, jsonObject);
+        cl.addSubgroup(sg);
+        addMessages(sg, jsonObject);
     }
 
 
     // MODIFIES: Post
     // EFFECTS: parses comment from JSON object and adds it to post
-    private void addMessages(Structure str, Classroom cl, Subgroup sg, JSONObject jsonObject) {
+    private void addMessages(Subgroup sg, JSONObject jsonObject) {
         JSONArray jsonArray = jsonObject.getJSONArray("messages");
         for (Object json : jsonArray) {
             JSONObject nextMessage = (JSONObject) json;
-            addMessage(str, cl, sg, nextMessage);
+            addMessage(sg, nextMessage);
         }
     }
 
     // MODIFIES: Post
     // EFFECTS: parses comment from JSON object and adds it to post
-    private void addMessage(Structure str, Classroom cl, Subgroup sg, JSONObject jsonObject) {
+    private void addMessage(Subgroup sg, JSONObject jsonObject) {
         String userWhoPosted = jsonObject.getString("userWhoPosted");
         String messageBody = jsonObject.getString("messageBody");
         Message message = new Message(userWhoPosted, messageBody);
-        str.addClassroom(cl);
-        cl.addSubgroup(sg);
         sg.addMessage(message);
     }
 
