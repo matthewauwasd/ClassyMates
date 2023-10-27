@@ -1,0 +1,34 @@
+{"classrooms": [
+    {
+        "courseName": "CPSC 210",
+        "subgroups": [{
+            "subgroupName": "YOOOOOO",
+            "messages": []
+        }],
+        "courseID": 210,
+        "posts": [{
+            "userWhoPosted": "wuhofwa",
+            "comments": [],
+            "postBody": "FUCK YEAH",
+            "postTitle": "YEAH BOI"
+        }]
+    },
+    {
+        "courseName": "MATH 200",
+        "subgroups": [],
+        "courseID": 200,
+        "posts": []
+    },
+    {
+        "courseName": "CPSC 221",
+        "subgroups": [],
+        "courseID": 221,
+        "posts": []
+    },
+    {
+        "courseName": "CPSC 213",
+        "subgroups": [],
+        "courseID": 213,
+        "posts": []
+    }
+]}

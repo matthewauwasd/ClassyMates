@@ -1,0 +1,14 @@
+{"classrooms": [
+    {
+        "courseName": "CPSC 210",
+        "subgroups": [],
+        "courseID": 210,
+        "posts": []
+    },
+    {
+        "courseName": "CPSC 110",
+        "subgroups": [],
+        "courseID": 110,
+        "posts": []
+    }
+]}

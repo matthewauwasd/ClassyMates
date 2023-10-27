@@ -1,0 +1,9 @@
+{"classrooms": [{
+    "courseName": "CPSC 210",
+    "subgroups": [{
+        "subgroupName": "Subgroup1",
+        "messages": []
+    }],
+    "courseID": 210,
+    "posts": []
+}]}

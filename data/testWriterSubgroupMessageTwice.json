@@ -1,0 +1,18 @@
+{"classrooms": [{
+    "courseName": "CPSC 210",
+    "subgroups": [{
+        "subgroupName": "Subgroup1",
+        "messages": [
+            {
+                "userWhoPosted": "User1",
+                "messageBody": "Message1"
+            },
+            {
+                "userWhoPosted": "User2",
+                "messageBody": "Message2"
+            }
+        ]
+    }],
+    "courseID": 210,
+    "posts": []
+}]}
