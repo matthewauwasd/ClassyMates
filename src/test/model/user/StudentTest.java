@@ -52,7 +52,6 @@ public class StudentTest extends UserTest {
     void testCreateSubgroup() {
         subgroup1 = studentA.createSubgroup(subgroup1Name);
         assertEquals("Sub1",subgroup1.getSubgroupName());
-        assertTrue(subgroup1.getSubgroupInterests().isEmpty());
         assertTrue(subgroup1.getMessages().isEmpty());
         assertTrue(subgroup1.getListOfStudents().isEmpty());
     }
@@ -62,11 +61,9 @@ public class StudentTest extends UserTest {
         subgroup1 = studentA.createSubgroup(subgroup1Name);
         subgroup2 = studentA.createSubgroup(subgroup2Name);
         assertEquals("Sub1",subgroup1.getSubgroupName());
-        assertTrue(subgroup1.getSubgroupInterests().isEmpty());
         assertTrue(subgroup1.getMessages().isEmpty());
         assertTrue(subgroup1.getListOfStudents().isEmpty());
         assertEquals("Sub2",subgroup2.getSubgroupName());
-        assertTrue(subgroup2.getSubgroupInterests().isEmpty());
         assertTrue(subgroup2.getMessages().isEmpty());
         assertTrue(subgroup2.getListOfStudents().isEmpty());
     }
@@ -76,7 +73,6 @@ public class StudentTest extends UserTest {
         subgroup1 = studentA.createSubgroup(subgroup1Name);
         studentA.joinSubgroup(subgroup1);
         assertEquals("Sub1",subgroup1.getSubgroupName());
-        assertTrue(subgroup1.getSubgroupInterests().isEmpty());
         assertTrue(subgroup1.getMessages().isEmpty());
         assertEquals(1,subgroup1.getListOfStudents().size());
         assertEquals(studentA,subgroup1.getListOfStudents().get(0));
@@ -89,7 +85,6 @@ public class StudentTest extends UserTest {
         studentA.joinSubgroup(subgroup1);
         studentA.joinSubgroup(subgroup1);
         assertEquals("Sub1",subgroup1.getSubgroupName());
-        assertTrue(subgroup1.getSubgroupInterests().isEmpty());
         assertTrue(subgroup1.getMessages().isEmpty());
         assertEquals(1,subgroup1.getListOfStudents().size());
         assertEquals(studentA,subgroup1.getListOfStudents().get(0));
@@ -103,12 +98,10 @@ public class StudentTest extends UserTest {
         studentB.joinSubgroup(subgroup1);
         studentB.joinSubgroup(subgroup2);
         assertEquals("Sub1",subgroup1.getSubgroupName());
-        assertTrue(subgroup1.getSubgroupInterests().isEmpty());
         assertTrue(subgroup1.getMessages().isEmpty());
         assertEquals(1,subgroup1.getListOfStudents().size());
         assertEquals(studentB,subgroup1.getListOfStudents().get(0));
         assertEquals("Sub2",subgroup2.getSubgroupName());
-        assertTrue(subgroup2.getSubgroupInterests().isEmpty());
         assertTrue(subgroup2.getMessages().isEmpty());
         assertEquals(1,subgroup2.getListOfStudents().size());
         assertEquals(studentB,subgroup2.getListOfStudents().get(0));
@@ -121,7 +114,6 @@ public class StudentTest extends UserTest {
         studentA.joinSubgroup(premadeSubgroup);
         studentA.leaveSubgroup(subgroupList, "Premade");
         assertEquals("Premade",premadeSubgroup.getSubgroupName());
-        assertTrue(premadeSubgroup.getSubgroupInterests().isEmpty());
         assertTrue(premadeSubgroup.getMessages().isEmpty());
         assertTrue(premadeSubgroup.getListOfStudents().isEmpty());
         assertTrue(studentA.getSubgroupsJoined().isEmpty());
@@ -134,13 +126,20 @@ public class StudentTest extends UserTest {
         studentA.leaveSubgroup(subgroupList,"Premade");
         studentA.leaveSubgroup(subgroupList,"Premade2");
         assertEquals("Premade",premadeSubgroup.getSubgroupName());
-        assertTrue(premadeSubgroup.getSubgroupInterests().isEmpty());
         assertTrue(premadeSubgroup.getMessages().isEmpty());
         assertTrue(premadeSubgroup.getListOfStudents().isEmpty());
         assertEquals("Premade2",premadeSubgroup2.getSubgroupName());
-        assertTrue(premadeSubgroup2.getSubgroupInterests().isEmpty());
         assertTrue(premadeSubgroup2.getMessages().isEmpty());
         assertTrue(premadeSubgroup2.getListOfStudents().isEmpty());
+        assertTrue(studentA.getSubgroupsJoined().isEmpty());
+    }
+
+    @Test
+    void testLeaveSubgroupNotJoined() {
+        studentA.leaveSubgroup(subgroupList, "Premade");
+        assertEquals("Premade",premadeSubgroup.getSubgroupName());
+        assertTrue(premadeSubgroup.getMessages().isEmpty());
+        assertTrue(premadeSubgroup.getListOfStudents().isEmpty());
         assertTrue(studentA.getSubgroupsJoined().isEmpty());
     }
 

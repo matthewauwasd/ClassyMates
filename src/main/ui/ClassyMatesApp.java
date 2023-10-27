@@ -2,12 +2,17 @@ package ui;
 
 import model.*;
 import model.user.Student;
+import persistence.JsonReader;
+import persistence.JsonWriter;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.Scanner;
 
 // ClassyMates application
 public class ClassyMatesApp {
     private Scanner input;
+    private static final String JSON_STRUCTURE = "./data/structure.json";
     private Structure structure;
     private Classroom currentClassroom;
     private Post currentPost;
@@ -17,10 +22,14 @@ public class ClassyMatesApp {
     private Classroom modelClassroom2 = new Classroom("MATH 200", 200);
     private Classroom modelClassroom3 = new Classroom("CPSC 221", 221);
     private Classroom modelClassroom4 = new Classroom("CPSC 213", 213);
+    private JsonWriter jsonWriter;
+    private JsonReader jsonReader;
 
     // EFFECTS: runs ClassyMates application
     public ClassyMatesApp() {
         structure = new Structure();
+        jsonWriter = new JsonWriter(JSON_STRUCTURE);
+        jsonReader = new JsonReader(JSON_STRUCTURE);
         structure.addClassroom(modelClassroom1);
         structure.addClassroom(modelClassroom2);
         structure.addClassroom(modelClassroom3);
@@ -64,11 +73,17 @@ public class ClassyMatesApp {
         while (selectionValid) {
             System.out.println("\nWhat would you like to do?");
             System.out.println("a - View classrooms");
-            System.out.println("b - Exit program");
+            System.out.println("b - Save data");
+            System.out.println("c - Load data");
+            System.out.println("d - Exit program");
             String command = input.next();
             if (command.equals("a")) {
                 viewClassrooms();
             } else if (command.equals("b")) {
+                saveStructure();
+            } else if (command.equals("c")) {
+                loadStructure();
+            } else if (command.equals("d")) {
                 selectionValid = false;
             } else {
                 System.out.println("Selection not valid...\n");
@@ -358,4 +373,28 @@ public class ClassyMatesApp {
         String enteredComment = input.next();
         currentPost.addComment(currentStudent.createComment(enteredComment));
     }
+
+    // EFFECTS: saves the structure to file
+    private void saveStructure() {
+        try {
+            jsonWriter.open();
+            jsonWriter.write(structure);
+            jsonWriter.close();
+            System.out.println("Saved data to " + JSON_STRUCTURE);
+        } catch (FileNotFoundException e) {
+            System.out.println("Unable to write to file: " + JSON_STRUCTURE);
+        }
+    }
+
+    // MODIFIES: this
+    // EFFECTS: loads structure from file
+    private void loadStructure() {
+        try {
+            structure = jsonReader.read();
+            System.out.println("Loaded data from " + JSON_STRUCTURE);
+        } catch (IOException e) {
+            System.out.println("Unable to read from file: " + JSON_STRUCTURE);
+        }
+    }
+
 }
