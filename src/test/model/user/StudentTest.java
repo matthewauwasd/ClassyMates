@@ -135,12 +135,36 @@ public class StudentTest extends UserTest {
     }
 
     @Test
+    void testLeaveSubgroupJoinTwoSubgroupsLeaveOne() {
+        studentA.joinSubgroup(premadeSubgroup);
+        studentA.joinSubgroup(premadeSubgroup2);
+        studentA.leaveSubgroup(subgroupList,"Premade");
+        assertEquals("Premade",premadeSubgroup.getSubgroupName());
+        assertTrue(premadeSubgroup.getMessages().isEmpty());
+        assertTrue(premadeSubgroup.getListOfStudents().isEmpty());
+        assertEquals("Premade2",premadeSubgroup2.getSubgroupName());
+        assertTrue(premadeSubgroup2.getMessages().isEmpty());
+        assertEquals(1,premadeSubgroup2.getListOfStudents().size());
+        assertEquals(premadeSubgroup2,studentA.getSubgroupsJoined().get(0));
+    }
+
+    @Test
     void testLeaveSubgroupNotJoined() {
         studentA.leaveSubgroup(subgroupList, "Premade");
         assertEquals("Premade",premadeSubgroup.getSubgroupName());
         assertTrue(premadeSubgroup.getMessages().isEmpty());
         assertTrue(premadeSubgroup.getListOfStudents().isEmpty());
         assertTrue(studentA.getSubgroupsJoined().isEmpty());
+    }
+
+    @Test
+    void testLeaveSubgroupWrongName() {
+        studentA.joinSubgroup(premadeSubgroup);
+        studentA.leaveSubgroup(subgroupList, "WRONG");
+        assertEquals("Premade",premadeSubgroup.getSubgroupName());
+        assertTrue(premadeSubgroup.getMessages().isEmpty());
+        assertEquals(1,premadeSubgroup.getListOfStudents().size());
+        assertEquals(premadeSubgroup,studentA.getSubgroupsJoined().get(0));
     }
 
     @Test

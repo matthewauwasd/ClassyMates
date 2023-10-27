@@ -44,7 +44,7 @@ public class JsonReader {
         return str;
     }
 
-    // MODIFIES: Structure
+    // MODIFIES: str
     // EFFECTS: parses classrooms from JSON object and adds them to structure
     private void addClassrooms(Structure str, JSONObject jsonObject) {
         JSONArray jsonArray = jsonObject.getJSONArray("classrooms");
@@ -54,8 +54,8 @@ public class JsonReader {
         }
     }
 
-    // MODIFIES: Structure
-    // EFFECTS: parses classrooms from JSON object and adds them to structure
+    // MODIFIES: str
+    // EFFECTS: parses classroom from JSON object and adds it to structure
     private void addClassroom(Structure str, JSONObject jsonObject) {
         String courseName = jsonObject.getString("courseName");
         int courseID = jsonObject.getInt("courseID");
@@ -65,8 +65,8 @@ public class JsonReader {
         addSubgroups(cl, jsonObject);
     }
 
-    // MODIFIES: Structure
-    // EFFECTS: parses classrooms from JSON object and adds them to structure
+    // MODIFIES: cl
+    // EFFECTS: parses posts from JSON object and adds them to classroom
     private void addPosts(Classroom cl, JSONObject jsonObject) {
         JSONArray jsonArray = jsonObject.getJSONArray("posts");
         for (Object json : jsonArray) {
@@ -75,8 +75,8 @@ public class JsonReader {
         }
     }
 
-    // MODIFIES: Structure
-    // EFFECTS: parses classrooms from JSON object and adds them to structure
+    // MODIFIES: cl
+    // EFFECTS: parses post from JSON object and adds it to classroom
     private void addPost(Classroom cl, JSONObject jsonObject) {
         String postTitle = jsonObject.getString("postTitle");
         String postBody = jsonObject.getString("postBody");
@@ -87,8 +87,8 @@ public class JsonReader {
     }
 
 
-    // MODIFIES: Post
-    // EFFECTS: parses comment from JSON object and adds it to post
+    // MODIFIES: p
+    // EFFECTS: parses comments from JSON object and adds them to post
     private void addComments(Post p, JSONObject jsonObject) {
         JSONArray jsonArray = jsonObject.getJSONArray("comments");
         for (Object json : jsonArray) {
@@ -97,7 +97,7 @@ public class JsonReader {
         }
     }
 
-    // MODIFIES: Post
+    // MODIFIES: p
     // EFFECTS: parses comment from JSON object and adds it to post
     private void addComment(Post p, JSONObject jsonObject) {
         String userWhoPosted = jsonObject.getString("userWhoPosted");
@@ -106,8 +106,8 @@ public class JsonReader {
         p.addComment(comment);
     }
 
-    // MODIFIES: Structure
-    // EFFECTS: parses classrooms from JSON object and adds them to structure
+    // MODIFIES: cl
+    // EFFECTS: parses subgroups from JSON object and adds them to classroom
     private void addSubgroups(Classroom cl, JSONObject jsonObject) {
         JSONArray jsonArray = jsonObject.getJSONArray("subgroups");
         for (Object json : jsonArray) {
@@ -116,8 +116,8 @@ public class JsonReader {
         }
     }
 
-    // MODIFIES: Structure
-    // EFFECTS: parses classrooms from JSON object and adds them to structure
+    // MODIFIES: cl
+    // EFFECTS: parses subgroup from JSON object and adds it to classroom
     private void addSubgroup(Classroom cl, JSONObject jsonObject) {
         String subgroupName = jsonObject.getString("subgroupName");
         Subgroup sg = new Subgroup(subgroupName);
@@ -126,8 +126,8 @@ public class JsonReader {
     }
 
 
-    // MODIFIES: Post
-    // EFFECTS: parses comment from JSON object and adds it to post
+    // MODIFIES: sg
+    // EFFECTS: parses messages from JSON object and adds them to subgroup
     private void addMessages(Subgroup sg, JSONObject jsonObject) {
         JSONArray jsonArray = jsonObject.getJSONArray("messages");
         for (Object json : jsonArray) {
@@ -136,8 +136,8 @@ public class JsonReader {
         }
     }
 
-    // MODIFIES: Post
-    // EFFECTS: parses comment from JSON object and adds it to post
+    // MODIFIES: sg
+    // EFFECTS: parses message from JSON object and adds it to subgroup
     private void addMessage(Subgroup sg, JSONObject jsonObject) {
         String userWhoPosted = jsonObject.getString("userWhoPosted");
         String messageBody = jsonObject.getString("messageBody");
