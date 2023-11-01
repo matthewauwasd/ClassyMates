@@ -25,6 +25,7 @@ public class Message implements Writable {
         return userWhoPosted;
     }
 
+    // EFFECTS: returns message in this subgroup as a JSON object
     @Override
     public JSONObject toJson() {
         JSONObject json = new JSONObject();

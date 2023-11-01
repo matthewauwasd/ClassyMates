@@ -10,6 +10,7 @@ public abstract class User {
     protected final String finalPassword;
     protected final String userType;
 
+    // EFFECTS: creates a user with username, password, and user type
     public User(String username, String password, String userType) {
         finalUsername = username;
         finalPassword = password;

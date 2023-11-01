@@ -26,6 +26,7 @@ public class Comment implements Writable {
         return userWhoPosted;
     }
 
+    // EFFECTS: returns comment in this subgroup as a JSON object
     @Override
     public JSONObject toJson() {
         JSONObject json = new JSONObject();

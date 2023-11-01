@@ -63,6 +63,7 @@ public class Classroom implements Writable {
         return listOfUsers;
     }
 
+    // EFFECTS: returns classroom in this subgroup as a JSON object
     @Override
     public JSONObject toJson() {
         JSONObject json = new JSONObject();
