@@ -9,7 +9,7 @@ import java.util.List;
 // Has basic user privileges as well as those specific to students.
 public class Student extends User {
 
-    List<Subgroup> subgroupsJoined;
+    private List<Subgroup> subgroupsJoined;
 
     // EFFECTS: creates student of username, password, and user type
     public Student(String username, String password, String userType) {

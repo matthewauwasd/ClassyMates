@@ -45,7 +45,7 @@ public class StudentTest extends UserTest {
         assertEquals("Student1",studentA.getUsername());
         assertEquals("Password1",studentA.getPassword());
         assertEquals("Student",studentA.getUserType());
-        assertTrue(studentA.subgroupsJoined.isEmpty());
+        assertTrue(studentA.getSubgroupsJoined().isEmpty());
     }
 
     @Test
