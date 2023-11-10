@@ -5,6 +5,6 @@ public class Main {
 
     // runs ClassyMates application
     public static void main(String[] args) {
-        new ClassyMatesApp();
+        new ClassyMatesAppUI();
     }
 }
