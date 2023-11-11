@@ -6,7 +6,9 @@ import persistence.JsonReader;
 import persistence.JsonWriter;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Scanner;
@@ -73,8 +75,11 @@ public class ClassyMatesAppUI extends JFrame {
         //Create and set up the window.
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
+        JPanel testPanel = new JPanel();
+        testPanel.setPreferredSize(new Dimension(WIDTH/3, HEIGHT));
         frame.setJMenuBar(createMenu());
-        frame.setContentPane(createScrollPane());
+        frame.add(testPanel, BorderLayout.LINE_START);
+        frame.add(classroomButtons() , BorderLayout.CENTER);
 
         //Display the window.
         frame.setSize(WIDTH, HEIGHT);
@@ -93,17 +98,36 @@ public class ClassyMatesAppUI extends JFrame {
         currentStudent = new Student(enteredUsername, enteredPassword, "Student");
     }
 
-    // MODIFIES: this
-    // EFFECTS: creates scroll pane containing list of classrooms
-    public JScrollPane createScrollPane() {
-        DefaultListModel<String> classList = new DefaultListModel<>();
-        for (Classroom c : structure.getClassroomList()) {
-            classList.addElement(c.getCourseName());
-        }
-        JList jClassList = new JList(classList);
-        JScrollPane classListScrollPane = new JScrollPane(jClassList);
+//    // MODIFIES: this
+//    // EFFECTS: creates scroll pane containing list of classrooms
+//    public JScrollPane createScrollPane() {
+//
+//        JList jClassList = new JList(classroomButtons());
+//        JScrollPane classListScrollPane = new JScrollPane(jClassList);
+//
+//        classListScrollPane.setPreferredSize(new Dimension(2 * (WIDTH/3), HEIGHT));
+//
+//        return classListScrollPane;
+//    }
 
-        return classListScrollPane;
+    // EFFECTS: creates button for each classroom
+    public JScrollPane classroomButtons() {
+        JPanel panel = new JPanel();
+        for (Classroom c : structure.getClassroomList()) {
+            JButton button = new JButton(c.getCourseName());
+            button.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    ClassroomUI currentClassroom = new ClassroomUI(c, currentStudent);
+                }
+            });
+            panel.add(button);
+        }
+        panel.setLayout(new BoxLayout(panel, BoxLayout.PAGE_AXIS));
+
+        JScrollPane scrollPane = new JScrollPane(panel);
+
+        return scrollPane;
     }
 
 
@@ -415,63 +439,82 @@ public class ClassyMatesAppUI extends JFrame {
     }
 
 
-    // creates save action through button
-    private class SaveAction extends AbstractAction {
-
-        SaveAction() {
-            super("Save");
-        }
-
-        @Override
-        // EFFECTS: saves the structure to file
-        public void actionPerformed(ActionEvent evt) {
-            try {
-                jsonWriter.open();
-                jsonWriter.write(structure);
-                jsonWriter.close();
-                System.out.println("Saved data to " + JSON_STRUCTURE);
-            } catch (FileNotFoundException e) {
-                System.out.println("Unable to write to file: " + JSON_STRUCTURE);
-            }
-        }
-
-    }
-
-    // creates load action through button
-    private class LoadAction extends AbstractAction {
-
-        LoadAction() {
-            super("Load");
-        }
-
-        @Override
-        // MODIFIES: this
-        // EFFECTS: loads structure from file
-        public void actionPerformed(ActionEvent evt) {
-            try {
-                structure = jsonReader.read();
-                System.out.println("Loaded data from " + JSON_STRUCTURE);
-            } catch (IOException e) {
-                System.out.println("Unable to read from file: " + JSON_STRUCTURE);
-            }
-        }
-
-    }
+//    // creates save action through button
+//    private class SaveAction extends AbstractAction {
+//
+//        SaveAction() {
+//            super("Save");
+//        }
+//
+//        @Override
+//        // EFFECTS: saves the structure to file
+//        public void actionPerformed(ActionEvent evt) {
+//            try {
+//                jsonWriter.open();
+//                jsonWriter.write(structure);
+//                jsonWriter.close();
+//                System.out.println("Saved data to " + JSON_STRUCTURE);
+//            } catch (FileNotFoundException e) {
+//                System.out.println("Unable to write to file: " + JSON_STRUCTURE);
+//            }
+//        }
+//
+//    }
 
     // MODIFIES: this
     // EFFECTS: creates menu bar
     private JMenuBar createMenu() {
         JMenuBar menuBar = new JMenuBar();
 
-        JButton saveButton = new JButton(new SaveAction());
+        JButton saveButton = createSaveButton();
         menuBar.add(saveButton);
 
-        JButton loadButton = new JButton(new LoadAction());
+        JButton loadButton = createLoadButton();
         menuBar.add(loadButton);
 
         setJMenuBar(menuBar);
 
         return menuBar;
+    }
+
+    // MODIFIES: this
+    // EFFECTS: creates a button that saves the structure to file
+    public JButton createSaveButton() {
+        JButton saveButton = new JButton("Save");
+        saveButton.addActionListener(new ActionListener() {
+            @Override
+            // EFFECTS: saving action
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    jsonWriter.open();
+                    jsonWriter.write(structure);
+                    jsonWriter.close();
+                    System.out.println("Saved data to " + JSON_STRUCTURE);
+                } catch (FileNotFoundException exception) {
+                    System.out.println("Unable to write to file: " + JSON_STRUCTURE);
+                }
+            }
+        });
+        return saveButton;
+    }
+
+    // MODIFIES: this
+    // EFFECTS: creates a button that loads the saved structure from file
+    public JButton createLoadButton() {
+        JButton loadButton = new JButton("Load");
+        loadButton.addActionListener(new ActionListener() {
+            @Override
+            // EFFECTS: loading action
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    structure = jsonReader.read();
+                    System.out.println("Loaded data from " + JSON_STRUCTURE);
+                } catch (IOException exception) {
+                    System.out.println("Unable to read from file: " + JSON_STRUCTURE);
+                }
+            }
+        });
+        return loadButton;
     }
 
 //    // EFFECTS: saves the structure to file
