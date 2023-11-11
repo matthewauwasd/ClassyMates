@@ -54,9 +54,8 @@ public class ClassyMatesAppUI extends JFrame {
     // MODIFIES: this
     // EFFECTS: moves user to appropriate view based on user type
     private void runClassyMates() {
-        init();
+        init(); // TODO: remove once GUI implementation is done
         initGUI();
-
 
         displayUserCreation();
         classroomsView();
@@ -75,11 +74,11 @@ public class ClassyMatesAppUI extends JFrame {
         //Create and set up the window.
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        JPanel testPanel = new JPanel();
-        testPanel.setPreferredSize(new Dimension(WIDTH/3, HEIGHT));
+        JPanel emptyPanel = new JPanel();
+        emptyPanel.setPreferredSize(new Dimension(WIDTH / 3, HEIGHT));
         frame.setJMenuBar(createMenu());
-        frame.add(testPanel, BorderLayout.LINE_START);
-        frame.add(classroomButtons() , BorderLayout.CENTER);
+        frame.add(emptyPanel, BorderLayout.LINE_START);
+        frame.add(classroomButtons(), BorderLayout.CENTER);
 
         //Display the window.
         frame.setSize(WIDTH, HEIGHT);
@@ -462,7 +461,7 @@ public class ClassyMatesAppUI extends JFrame {
 //    }
 
     // MODIFIES: this
-    // EFFECTS: creates menu bar
+    // EFFECTS: creates menu bar with save and load buttons
     private JMenuBar createMenu() {
         JMenuBar menuBar = new JMenuBar();
 
@@ -504,10 +503,13 @@ public class ClassyMatesAppUI extends JFrame {
         JButton loadButton = new JButton("Load");
         loadButton.addActionListener(new ActionListener() {
             @Override
-            // EFFECTS: loading action
+            // EFFECTS: loading action that replaces the existing JFrame with a new one with loaded data
             public void actionPerformed(ActionEvent e) {
                 try {
                     structure = jsonReader.read();
+                    frame.dispose();
+                    frame = new JFrame("ClassyMates");
+                    initGUI();
                     System.out.println("Loaded data from " + JSON_STRUCTURE);
                 } catch (IOException exception) {
                     System.out.println("Unable to read from file: " + JSON_STRUCTURE);

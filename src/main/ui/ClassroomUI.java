@@ -47,7 +47,7 @@ public class ClassroomUI extends JFrame {
             button.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    // stub
+                    PostUI currentPost = new PostUI(p, currentStudent);
                 }
             });
             panel.add(button);
@@ -61,10 +61,21 @@ public class ClassroomUI extends JFrame {
 
     public JPanel sideButtons() {
         JPanel sideButtonPanel = new JPanel();
-        sideButtonPanel.setPreferredSize(new Dimension(WIDTH/3, HEIGHT));
+        sideButtonPanel.setPreferredSize(new Dimension(WIDTH / 3, HEIGHT));
         sideButtonPanel.setLayout(new BoxLayout(sideButtonPanel, BoxLayout.PAGE_AXIS));
+        JButton createPost = createPostButton();
+        JButton viewSubgroups = createViewSubgroupsButton();
+        JButton goBack = createGoBackButton();
+
+
+        sideButtonPanel.add(createPost);
+        sideButtonPanel.add(viewSubgroups);
+        sideButtonPanel.add(goBack);
+        return sideButtonPanel;
+    }
+
+    public JButton createPostButton() {
         JButton createPost = new JButton("Create post");
-        JButton goBack = new JButton("Go back");
         createPost.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -72,16 +83,67 @@ public class ClassroomUI extends JFrame {
                 classroomFrame.dispose();
             }
         });
-        goBack.addActionListener(new ActionListener() {
+
+        return createPost;
+    }
+
+    public JButton createViewSubgroupsButton() {
+        JButton viewSubgroups = new JButton("View subgroups");
+        viewSubgroups.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                classroomFrame.dispose();
+                classroomFrame.setContentPane(subgroupsPane());
             }
         });
-        sideButtonPanel.add(createPost);
-        sideButtonPanel.add(goBack);
-        return sideButtonPanel;
+
+        return viewSubgroups;
     }
+
+//    public Container subgroupsPane() {
+//        JFrame subgroupMainPane = new JFrame();
+//
+//        subgroupMainPane.add(sideButtonsSG());
+//
+//        return subgroupMainPane;
+//
+//    }
+//
+//    public JPanel sideButtonsSG() {
+//        JPanel sideButtonPanel = new JPanel();
+//        sideButtonPanel.setPreferredSize(new Dimension(WIDTH / 3, HEIGHT));
+//        sideButtonPanel.setLayout(new BoxLayout(sideButtonPanel, BoxLayout.PAGE_AXIS));
+//        JButton createSubgroup = createSubgroupButton();
+//        JButton goBackSG = createGoBackButtonSG();
+//
+//
+//        sideButtonPanel.add(createSubgroup);
+//        sideButtonPanel.add(goBackSG);
+//        return sideButtonPanel;
+//    }
+//
+//    public JButton createGoBackButton() {
+//        JButton goBack = new JButton("Go back");
+//        goBack.addActionListener(new ActionListener() {
+//            @Override
+//            public void actionPerformed(ActionEvent e) {
+//                classroomFrame.dispose();
+//            }
+//        });
+//
+//        return goBack;
+//    }
+//
+//    public JButton createGoBackButtonSG() {
+//        JButton goBackSG = new JButton("Go back");
+//        goBackSG.addActionListener(new ActionListener() {
+//            @Override
+//            public void actionPerformed(ActionEvent e) {
+//                classroomFrame.dispose();
+//            }
+//        });
+//
+//        return goBackSG;
+//    }
 
     public void createPost() {
 
