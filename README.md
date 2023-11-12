@@ -53,3 +53,19 @@ done better academically. Having friends in your classes really helps to create 
 * As a user, I want to view subgroups in a classroom.
 * As a user, I want to save all classrooms, posts, comments, subgroups, and messages.
 * As a user, I want to be able to load the saved classrooms, posts, comments, subgroups, and messages.
+
+# Instructions for Grader
+
+- You can add Posts to a Classroom by clicking a classroom, and then
+  clicking the "Create post" button to the left, and entering the post title and body.
+- You can add Comments to a Post by clicking a post, and then
+  clicking the "Create comment" button to the left, and entering the comment body.
+- You can add Subgroups to a Classroom by clicking a classroom, and then
+  clicking the "View subgroups" button to the left, clicking the "Create subgroup" button to the left,
+  and entering the subgroup name.
+- You can add Messages to a Subgroup by clicking a subgroup after clicking the "View subgroups" button in the
+  classroom, clicking the "Create message" button to the left, and entering the message body.
+- You can save the state of my application by going to the first screen and clicking the save button in the 
+  top menu bar.
+- You can reload the state of my application by going to the first screen and clicking the load button in the
+  top menu bar.

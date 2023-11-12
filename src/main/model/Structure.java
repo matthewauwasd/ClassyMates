@@ -29,8 +29,8 @@ public class Structure implements Writable {
         return classroomList;
     }
 
-    // EFFECTS: returns structure in this subgroup as a JSON object
     @Override
+    // EFFECTS: returns structure in this subgroup as a JSON object
     public JSONObject toJson() {
         JSONObject json = new JSONObject();
         json.put("classrooms", classroomsToJson());

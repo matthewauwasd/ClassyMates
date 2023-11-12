@@ -50,8 +50,8 @@ public class Post implements Writable {
         return userWhoPosted;
     }
 
-    // EFFECTS: returns post in this subgroup as a JSON object
     @Override
+    // EFFECTS: returns post in this subgroup as a JSON object
     public JSONObject toJson() {
         JSONObject json = new JSONObject();
         json.put("postTitle", finalPostTitle);

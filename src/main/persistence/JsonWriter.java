@@ -9,6 +9,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 
+// Represents a class that can write JSON files
 public class JsonWriter {
     private static final int TAB = 4;
     private PrintWriter writer;

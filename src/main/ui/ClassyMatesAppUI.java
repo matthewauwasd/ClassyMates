@@ -11,7 +11,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.Scanner;
 
 // ClassyMates application
 public class ClassyMatesAppUI extends JFrame {
@@ -21,13 +20,9 @@ public class ClassyMatesAppUI extends JFrame {
 
     private JFrame frame;
 
-    private Scanner input;
     private static final String JSON_STRUCTURE = "./data/structure.json";
     private Structure structure;
-    private Classroom currentClassroom;
-    private Post currentPost;
     private Student currentStudent;
-    private Subgroup currentSubgroup;
     private Classroom modelClassroom1 = new Classroom("CPSC 210", 210);
     private Classroom modelClassroom2 = new Classroom("MATH 200", 200);
     private Classroom modelClassroom3 = new Classroom("CPSC 221", 221);
@@ -87,13 +82,15 @@ public class ClassyMatesAppUI extends JFrame {
         currentStudent = new Student(enteredUsername, enteredPassword, "Student");
     }
 
-    // EFFECTS: creates button for each classroom
+    // MODIFIES: this
+    // EFFECTS: creates and returns button for each classroom
     public JScrollPane classroomButtons() {
         JPanel panel = new JPanel();
         for (Classroom c : structure.getClassroomList()) {
             JButton button = new JButton(c.getCourseName());
             button.addActionListener(new ActionListener() {
                 @Override
+                // EFFECTS: creates new classroom UI for current classroom
                 public void actionPerformed(ActionEvent e) {
                     ClassroomUI currentClassroom = new ClassroomUI(c, currentStudent);
                 }
@@ -108,7 +105,7 @@ public class ClassyMatesAppUI extends JFrame {
     }
 
     // MODIFIES: this
-    // EFFECTS: creates menu bar with save and load buttons
+    // EFFECTS: creates and returns menu bar with save and load buttons
     private JMenuBar createMenu() {
         JMenuBar menuBar = new JMenuBar();
 
@@ -124,7 +121,7 @@ public class ClassyMatesAppUI extends JFrame {
     }
 
     // MODIFIES: this
-    // EFFECTS: creates a button that saves the structure to file
+    // EFFECTS: creates and returns a button that saves the structure to file
     public JButton createSaveButton() {
         JButton saveButton = new JButton("Save");
         saveButton.addActionListener(new ActionListener() {
@@ -145,7 +142,7 @@ public class ClassyMatesAppUI extends JFrame {
     }
 
     // MODIFIES: this
-    // EFFECTS: creates a button that loads the saved structure from file
+    // EFFECTS: creates and returns a button that loads the saved structure from file
     public JButton createLoadButton() {
         JButton loadButton = new JButton("Load");
         loadButton.addActionListener(new ActionListener() {

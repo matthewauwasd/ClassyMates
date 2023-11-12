@@ -41,8 +41,8 @@ public class Subgroup implements Writable {
         return students;
     }
 
-    // EFFECTS: returns subgroup in this subgroup as a JSON object
     @Override
+    // EFFECTS: returns subgroup in this subgroup as a JSON object
     public JSONObject toJson() {
         JSONObject json = new JSONObject();
         json.put("subgroupName", finalSubgroupName);

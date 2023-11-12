@@ -1,6 +1,5 @@
 package model;
 
-
 import org.json.JSONObject;
 import persistence.Writable;
 
@@ -26,8 +25,8 @@ public class Comment implements Writable {
         return userWhoPosted;
     }
 
-    // EFFECTS: returns comment in this subgroup as a JSON object
     @Override
+    // EFFECTS: returns comment in this subgroup as a JSON object
     public JSONObject toJson() {
         JSONObject json = new JSONObject();
         json.put("userWhoPosted", userWhoPosted);

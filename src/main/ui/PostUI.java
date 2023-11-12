@@ -9,6 +9,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+// Represents a post GUI
 public class PostUI {
 
     private static final int WIDTH = 1000;
@@ -18,6 +19,7 @@ public class PostUI {
     private Post currentPost;
     private JFrame postFrame;
 
+    // EFFECTS: creates post UI with JFrame
     public PostUI(Post p, Student s) {
         currentPost = p;
         currentStudent = s;
@@ -39,6 +41,8 @@ public class PostUI {
         postFrame.setVisible(true);
     }
 
+    // MODIFIES: this
+    // EFFECTS: creates and returns JPanel containing several JPanels
     public JPanel postDetails() {
         JPanel mainPanel = new JPanel();
         mainPanel.setPreferredSize(new Dimension(2 * (WIDTH / 3), HEIGHT));
@@ -49,6 +53,8 @@ public class PostUI {
         return mainPanel;
     }
 
+    // MODIFIES: this
+    // EFFECTS: creates and returns JPanel with post title and post body
     public JPanel createPostPanel() {
         JPanel postPanel = new JPanel();
         JTextArea postTitle = new JTextArea(currentPost.getPostTitle());
@@ -68,6 +74,8 @@ public class PostUI {
         return postPanel;
     }
 
+    // MODIFIES: this
+    // EFFECTS: creates and returns JScrollPane containing comments
     public JScrollPane createCommentsPanel() {
         JPanel commentsPanel = new JPanel();
         commentsPanel.setLayout(new BoxLayout(commentsPanel, BoxLayout.PAGE_AXIS));
@@ -83,6 +91,8 @@ public class PostUI {
         return scrollPane;
     }
 
+    // MODIFIES: this
+    // EFFECTS: creates and returns JPanel containing several buttons
     public JPanel sideButtons() {
         JPanel sideButtonPanel = new JPanel();
         sideButtonPanel.setPreferredSize(new Dimension(WIDTH / 3, HEIGHT));
@@ -91,13 +101,16 @@ public class PostUI {
         JButton goBack = new JButton("Go back");
         createPost.addActionListener(new ActionListener() {
             @Override
+            // EFFECTS: calls create comment method and disposes of current JFrame
             public void actionPerformed(ActionEvent e) {
                 createComment();
                 postFrame.dispose();
             }
         });
+
         goBack.addActionListener(new ActionListener() {
             @Override
+            // EFFECTS: disposes of current JFrame
             public void actionPerformed(ActionEvent e) {
                 postFrame.dispose();
             }
@@ -107,10 +120,10 @@ public class PostUI {
         return sideButtonPanel;
     }
 
+    // MODIFIES: this
+    // EFFECTS: prompts user to create a comment and reinitialize post UI
     public void createComment() {
-
         String enteredComment = JOptionPane.showInputDialog(postFrame, "What would you like to comment?");
-
         currentPost.addComment(currentStudent.createComment(enteredComment));
         new PostUI(currentPost, currentStudent);
     }

@@ -10,6 +10,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+// Represents a classroom GUI
 public class ClassroomUI extends JFrame {
 
     private static final int WIDTH = 1000;
@@ -20,6 +21,7 @@ public class ClassroomUI extends JFrame {
     private JFrame classroomSubgroupFrame;
     private Student currentStudent;
 
+    // EFFECTS: creates classroom UI with two JFrames
     public ClassroomUI(Classroom classroom, Student student) {
         currentClassroom = classroom;
         currentStudent = student;
@@ -30,7 +32,7 @@ public class ClassroomUI extends JFrame {
     }
 
     // MODIFIES: this
-    // EFFECTS:  displays GUI window
+    // EFFECTS:  displays classroom GUI window
     private void initializeGUI() {
         //Create and set up the window.
 
@@ -48,19 +50,21 @@ public class ClassroomUI extends JFrame {
     }
 
     // MODIFIES: this
-    // EFFECTS:  displays GUI window
+    // EFFECTS:  displays classroom GUI with subgroups visible and not posts
     private void subgroupViewVisibility() {
         classroomFrame.setVisible(false);
         classroomSubgroupFrame.setVisible(true);
     }
 
-    // EFFECTS: creates button for each classroom
+    // MODIFIES: this
+    // EFFECTS: creates and returns a JScrollPane containing a button for each classroom
     public JScrollPane postButtons() {
         JPanel panel = new JPanel();
         for (Post p : currentClassroom.getPosts()) {
             JButton button = new JButton(p.getPostTitle());
             button.addActionListener(new ActionListener() {
                 @Override
+                // EFFECTS: creates post UI for current post
                 public void actionPerformed(ActionEvent e) {
                     PostUI currentPost = new PostUI(p, currentStudent);
                 }
@@ -74,12 +78,15 @@ public class ClassroomUI extends JFrame {
         return scrollPane;
     }
 
+    // MODIFIES: this
+    // EFFECTS: creates and returns a JScrollPane containing a button for each subgroup
     public JScrollPane subgroupButtons() {
         JPanel panel = new JPanel();
         for (Subgroup sg : currentClassroom.getSubgroups()) {
             JButton button = new JButton(sg.getSubgroupName());
             button.addActionListener(new ActionListener() {
                 @Override
+                // EFFECTS: creates subgroup UI for current subgroup
                 public void actionPerformed(ActionEvent e) {
                     SubgroupUI currentSubgroup = new SubgroupUI(sg, currentStudent);
                 }
@@ -93,6 +100,8 @@ public class ClassroomUI extends JFrame {
         return scrollPane;
     }
 
+    // MODIFIES: this
+    // EFFECTS: creates and returns a JPanel containing buttons that go on the left of posts
     public JPanel sideButtons() {
         JPanel sideButtonPanel = new JPanel();
         sideButtonPanel.setPreferredSize(new Dimension(WIDTH / 3, HEIGHT));
@@ -108,10 +117,13 @@ public class ClassroomUI extends JFrame {
         return sideButtonPanel;
     }
 
+    // MODIFIES: this
+    // EFFECTS: creates and returns JButton that prompts user to create a post
     public JButton createPostButton() {
         JButton createPost = new JButton("Create post");
         createPost.addActionListener(new ActionListener() {
             @Override
+            // EFFECTS: calls create post method and removes current JFrame
             public void actionPerformed(ActionEvent e) {
                 createPost();
                 classroomFrame.dispose();
@@ -121,19 +133,23 @@ public class ClassroomUI extends JFrame {
         return createPost;
     }
 
+    // MODIFIES: this
+    // EFFECTS: creates and returns JButton that changes JFrame to display subgroups
     public JButton createViewSubgroupsButton() {
         JButton viewSubgroups = new JButton("View subgroups");
         viewSubgroups.addActionListener(new ActionListener() {
             @Override
+            // EFFECTS: changes visibility of JFrames
             public void actionPerformed(ActionEvent e) {
-                classroomFrame.setVisible(false);
-                classroomSubgroupFrame.setVisible(true);
+                subgroupViewVisibility();
             }
         });
 
         return viewSubgroups;
     }
 
+    // MODIFIES: this
+    // EFFECTS: creates and returns a JPanel containing appropriate buttons for viewing subgroups
     public JPanel sideButtonsSG() {
         JPanel sideButtonPanel = new JPanel();
         sideButtonPanel.setPreferredSize(new Dimension(WIDTH / 3, HEIGHT));
@@ -141,16 +157,18 @@ public class ClassroomUI extends JFrame {
         JButton createSubgroup = createSubgroupButton();
         JButton goBackSG = createGoBackButtonSG();
 
-
         sideButtonPanel.add(createSubgroup);
         sideButtonPanel.add(goBackSG);
         return sideButtonPanel;
     }
 
+    // MODIFIES: this
+    // EFFECTS: creates and returns go back JButton that disposes current JFrame
     public JButton createGoBackButton() {
         JButton goBack = new JButton("Go back");
         goBack.addActionListener(new ActionListener() {
             @Override
+            // EFFECTS: disposes current JFrame
             public void actionPerformed(ActionEvent e) {
                 classroomFrame.dispose();
             }
@@ -159,10 +177,13 @@ public class ClassroomUI extends JFrame {
         return goBack;
     }
 
+    // MODIFIES: this
+    // EFFECTS: creates and returns go back JButton that changes visibility of relevant JFrames
     public JButton createGoBackButtonSG() {
         JButton goBackSG = new JButton("Go back");
         goBackSG.addActionListener(new ActionListener() {
             @Override
+            // EFFECTS: sets current JFrame as invisible and previous JFrame as visible
             public void actionPerformed(ActionEvent e) {
                 classroomSubgroupFrame.setVisible(false);
                 classroomFrame.setVisible(true);
@@ -172,10 +193,13 @@ public class ClassroomUI extends JFrame {
         return goBackSG;
     }
 
+    // MODIFIES: this
+    // EFFECTS: creates and returns JButton that allows for creation of subgroup
     public JButton createSubgroupButton() {
         JButton createSubgroup = new JButton("Create subgroup");
         createSubgroup.addActionListener(new ActionListener() {
             @Override
+            // EFFECTS: calls method to create subgroup, and disposes of current JFrame
             public void actionPerformed(ActionEvent e) {
                 createSubgroup();
                 classroomSubgroupFrame.dispose();
@@ -185,19 +209,19 @@ public class ClassroomUI extends JFrame {
         return createSubgroup;
     }
 
+    // MODIFIES: this
+    // EFFECTS: prompts user to create post and creates new instance of classroom UI
     public void createPost() {
-
         String postTitle = JOptionPane.showInputDialog(classroomFrame, "Please enter the title of your post:");
-
         String postBody = JOptionPane.showInputDialog(classroomFrame,
                 "What would you like to write for your post?");
-
         currentClassroom.addPost(currentStudent.createPost(postTitle, postBody));
         new ClassroomUI(currentClassroom, currentStudent);
     }
 
+    // MODIFIES: this
+    // EFFECTS: prompts user to create post and creates new instance of classroom UI with appropriate visibility
     public void createSubgroup() {
-
         String subgroupName = JOptionPane.showInputDialog(classroomSubgroupFrame,
                 "What would you like to call your subgroup?");
         currentClassroom.addSubgroup(currentStudent.createSubgroup(subgroupName));
