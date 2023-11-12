@@ -2,33 +2,213 @@
     {
         "courseName": "CPSC 210",
         "subgroups": [{
-            "subgroupName": "YOOOOOO",
-            "messages": []
+            "subgroupName": "NEW SUBGROUP",
+            "messages": [
+                {
+                    "userWhoPosted": "YOOOOO",
+                    "messageBody": "Hi"
+                },
+                {
+                    "userWhoPosted": "YOOOOO",
+                    "messageBody": "Hello"
+                },
+                {
+                    "userWhoPosted": "YOOOOO",
+                    "messageBody": "TEST"
+                },
+                {
+                    "userWhoPosted": "YOOOOO",
+                    "messageBody": "Yo, what's up"
+                },
+                {
+                    "userWhoPosted": "YOOOOO",
+                    "messageBody": "this is a bit janky though"
+                }
+            ]
         }],
         "courseID": 210,
-        "posts": [{
-            "userWhoPosted": "wuhofwa",
-            "comments": [],
-            "postBody": "FUCK YEAH",
-            "postTitle": "YEAH BOI"
-        }]
+        "posts": [
+            {
+                "userWhoPosted": "USERNAME",
+                "comments": [],
+                "postBody": "AAAAA",
+                "postTitle": "AAAAA"
+            },
+            {
+                "userWhoPosted": "test",
+                "comments": [
+                    {
+                        "userWhoPosted": "test",
+                        "commentBody": "hello"
+                    },
+                    {
+                        "userWhoPosted": "test",
+                        "commentBody": "hello"
+                    },
+                    {
+                        "userWhoPosted": "test",
+                        "commentBody": "hello"
+                    },
+                    {
+                        "userWhoPosted": "test",
+                        "commentBody": "hello"
+                    },
+                    {
+                        "userWhoPosted": "test",
+                        "commentBody": "hello"
+                    },
+                    {
+                        "userWhoPosted": "test",
+                        "commentBody": "hello"
+                    },
+                    {
+                        "userWhoPosted": "test",
+                        "commentBody": "hello"
+                    },
+                    {
+                        "userWhoPosted": "test",
+                        "commentBody": "hello"
+                    },
+                    {
+                        "userWhoPosted": "test",
+                        "commentBody": "hello"
+                    },
+                    {
+                        "userWhoPosted": "test",
+                        "commentBody": "hello"
+                    },
+                    {
+                        "userWhoPosted": "test",
+                        "commentBody": "hello"
+                    },
+                    {
+                        "userWhoPosted": "test",
+                        "commentBody": "hello"
+                    },
+                    {
+                        "userWhoPosted": "test",
+                        "commentBody": "hello"
+                    },
+                    {
+                        "userWhoPosted": "test",
+                        "commentBody": "hello"
+                    },
+                    {
+                        "userWhoPosted": "test",
+                        "commentBody": "hello"
+                    },
+                    {
+                        "userWhoPosted": "test",
+                        "commentBody": "hello"
+                    },
+                    {
+                        "userWhoPosted": "test",
+                        "commentBody": "hello"
+                    },
+                    {
+                        "userWhoPosted": "test",
+                        "commentBody": "hello"
+                    },
+                    {
+                        "userWhoPosted": "test",
+                        "commentBody": "hello"
+                    },
+                    {
+                        "userWhoPosted": "test",
+                        "commentBody": "hello"
+                    },
+                    {
+                        "userWhoPosted": "test",
+                        "commentBody": "hello"
+                    },
+                    {
+                        "userWhoPosted": "hello",
+                        "commentBody": "hello"
+                    },
+                    {
+                        "userWhoPosted": "hello",
+                        "commentBody": "hi"
+                    },
+                    {
+                        "userWhoPosted": "hello",
+                        "commentBody": "hello"
+                    },
+                    {
+                        "userWhoPosted": "hello",
+                        "commentBody": "hi"
+                    },
+                    {
+                        "userWhoPosted": "hello",
+                        "commentBody": "hlo"
+                    },
+                    {
+                        "userWhoPosted": "hello",
+                        "commentBody": "hi"
+                    },
+                    {
+                        "userWhoPosted": "hello",
+                        "commentBody": "hlo"
+                    },
+                    {
+                        "userWhoPosted": "hello",
+                        "commentBody": "hi"
+                    },
+                    {
+                        "userWhoPosted": "hello",
+                        "commentBody": "hlo"
+                    },
+                    {
+                        "userWhoPosted": "hello",
+                        "commentBody": "hi"
+                    }
+                ],
+                "postBody": "thanks a lot",
+                "postTitle": "thanks TA"
+            }
+        ]
     },
     {
         "courseName": "MATH 200",
         "subgroups": [],
         "courseID": 200,
-        "posts": []
+        "posts": [{
+            "userWhoPosted": "USERNAME",
+            "comments": [],
+            "postBody": "BBBBB",
+            "postTitle": "BBBBB"
+        }]
     },
     {
         "courseName": "CPSC 221",
         "subgroups": [],
         "courseID": 221,
-        "posts": []
+        "posts": [{
+            "userWhoPosted": "USERNAME",
+            "comments": [],
+            "postBody": "CCCCC",
+            "postTitle": "CCCCC"
+        }]
     },
     {
         "courseName": "CPSC 213",
         "subgroups": [],
         "courseID": 213,
-        "posts": []
+        "posts": [{
+            "userWhoPosted": "USERNAME",
+            "comments": [],
+            "postBody": "DDDDD",
+            "postTitle": "DDDDD"
+        }]
+    },
+    {
+        "courseName": "CPSC 310",
+        "subgroups": [],
+        "courseID": 310,
+        "posts": [{
+            "userWhoPosted": "USERNAME",
+            "comments": [],
+            "postBody": "EEEEE",
+            "postTitle": "EEEEE"
+        }]
     }
 ]}

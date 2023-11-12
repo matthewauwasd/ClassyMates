@@ -20,12 +20,12 @@ public class SubgroupUI {
 
     public SubgroupUI(Subgroup sg, Student s) {
 
-    currentSubgroup = sg;
-    currentStudent = s;
-    subgroupFrame = new JFrame(sg.getSubgroupName());
+        currentSubgroup = sg;
+        currentStudent = s;
+        subgroupFrame = new JFrame(sg.getSubgroupName());
 
-    initializeGUI();
-}
+        initializeGUI();
+    }
 
     // MODIFIES: this
     // EFFECTS:  displays GUI window
@@ -52,11 +52,13 @@ public class SubgroupUI {
 
     public JPanel createSubgroupPanel() {
         JPanel subgroupInfoPanel = new JPanel();
-        subgroupInfoPanel.setPreferredSize(new Dimension(2 * (WIDTH / 3), HEIGHT / 5));
-        subgroupInfoPanel.setMinimumSize(new Dimension(2 * (WIDTH / 3), HEIGHT / 5));
-        subgroupInfoPanel.setMaximumSize(new Dimension(2 * (WIDTH / 3), HEIGHT / 5));
-        subgroupInfoPanel.setLayout(new BoxLayout(subgroupInfoPanel, BoxLayout.PAGE_AXIS));
         JTextArea subgroupName = new JTextArea(currentSubgroup.getSubgroupName());
+        int subgroupNameFontSize = 30;
+        subgroupName.setFont(subgroupName.getFont().deriveFont((float) subgroupNameFontSize));
+        subgroupInfoPanel.setPreferredSize(new Dimension(2 * (WIDTH / 3), subgroupNameFontSize + 5));
+        subgroupInfoPanel.setMinimumSize(new Dimension(2 * (WIDTH / 3), subgroupNameFontSize + 5));
+        subgroupInfoPanel.setMaximumSize(new Dimension(2 * (WIDTH / 3), subgroupNameFontSize + 5));
+        subgroupInfoPanel.setLayout(new BoxLayout(subgroupInfoPanel, BoxLayout.PAGE_AXIS));
         subgroupName.setEditable(false);
         subgroupInfoPanel.add(subgroupName);
 

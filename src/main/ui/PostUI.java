@@ -51,12 +51,15 @@ public class PostUI {
 
     public JPanel createPostPanel() {
         JPanel postPanel = new JPanel();
-        postPanel.setPreferredSize(new Dimension(2 * (WIDTH / 3), HEIGHT / 3));
-        postPanel.setMinimumSize(new Dimension(2 * (WIDTH / 3), HEIGHT / 3));
-        postPanel.setMaximumSize(new Dimension(2 * (WIDTH / 3), HEIGHT / 3));
-        postPanel.setLayout(new BoxLayout(postPanel, BoxLayout.PAGE_AXIS));
         JTextArea postTitle = new JTextArea(currentPost.getPostTitle());
         JTextArea postBody = new JTextArea(currentPost.getPostBody());
+        int postTitleFontSize = 30;
+        postTitle.setFont(postTitle.getFont().deriveFont((float)postTitleFontSize));
+        postPanel.setPreferredSize(new Dimension(2 * (WIDTH / 3), 2 * postTitleFontSize));
+        postPanel.setMinimumSize(new Dimension(2 * (WIDTH / 3), 2 * postTitleFontSize));
+        postPanel.setMaximumSize(new Dimension(2 * (WIDTH / 3), 2 * postTitleFontSize));
+        postPanel.setLayout(new BoxLayout(postPanel, BoxLayout.PAGE_AXIS));
+
         postTitle.setEditable(false);
         postBody.setEditable(false);
         postPanel.add(postTitle);
