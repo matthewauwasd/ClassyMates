@@ -78,6 +78,8 @@ public class SubgroupUI {
         messagesPanel.setLayout(new BoxLayout(messagesPanel, BoxLayout.PAGE_AXIS));
         for (Message m : currentSubgroup.getMessages()) {
             JPanel messageAndAuthor = new JPanel();
+            messageAndAuthor.setMaximumSize(new Dimension(2 * (WIDTH / 3), 40));
+            messageAndAuthor.setMinimumSize(new Dimension(2 * (WIDTH / 3), 40));
             messageAndAuthor.setLayout(new BoxLayout(messageAndAuthor, BoxLayout.PAGE_AXIS));
             messageAndAuthor.add(new JTextArea(m.getUserWhoPosted() + " said:"));
             messageAndAuthor.add(new JTextArea(m.getMessageBody() + "\n"));

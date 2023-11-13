@@ -23,6 +23,18 @@
                 {
                     "userWhoPosted": "YOOOOO",
                     "messageBody": "this is a bit janky though"
+                },
+                {
+                    "userWhoPosted": "hi",
+                    "messageBody": "so"
+                },
+                {
+                    "userWhoPosted": "hi",
+                    "messageBody": "this works a bit better now"
+                },
+                {
+                    "userWhoPosted": "hi",
+                    "messageBody": "yessir"
                 }
             ]
         }],

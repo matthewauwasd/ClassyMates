@@ -57,6 +57,8 @@ public class PostUI {
     // EFFECTS: creates and returns JPanel with post title and post body
     public JPanel createPostPanel() {
         JPanel postPanel = new JPanel();
+        JPanel postTitlePanel = new JPanel();
+        JPanel postBodyPanel = new JPanel();
         JTextArea postTitle = new JTextArea(currentPost.getPostTitle());
         JTextArea postBody = new JTextArea(currentPost.getPostBody());
         int postTitleFontSize = 30;
@@ -65,6 +67,9 @@ public class PostUI {
         postPanel.setMinimumSize(new Dimension(2 * (WIDTH / 3), 2 * postTitleFontSize));
         postPanel.setMaximumSize(new Dimension(2 * (WIDTH / 3), 2 * postTitleFontSize));
         postPanel.setLayout(new BoxLayout(postPanel, BoxLayout.PAGE_AXIS));
+
+        postTitlePanel.add(postTitle);
+        postBodyPanel.add(postBody);
 
         postTitle.setEditable(false);
         postBody.setEditable(false);
@@ -81,6 +86,8 @@ public class PostUI {
         commentsPanel.setLayout(new BoxLayout(commentsPanel, BoxLayout.PAGE_AXIS));
         for (Comment c : currentPost.getComments()) {
             JPanel commentAndAuthor = new JPanel();
+            commentAndAuthor.setMaximumSize(new Dimension(2 * (WIDTH / 3), 40));
+            commentAndAuthor.setMinimumSize(new Dimension(2 * (WIDTH / 3), 40));
             commentAndAuthor.setLayout(new BoxLayout(commentAndAuthor, BoxLayout.PAGE_AXIS));
             commentAndAuthor.add(new JTextArea(c.getUserWhoPosted() + " posted:"));
             commentAndAuthor.add(new JTextArea(c.getCommentBody() + "\n"));
