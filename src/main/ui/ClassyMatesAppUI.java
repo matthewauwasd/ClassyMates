@@ -5,15 +5,18 @@ import model.user.Student;
 import persistence.JsonReader;
 import persistence.JsonWriter;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
 // ClassyMates application
-public class ClassyMatesAppUI extends JFrame {
+public class ClassyMatesAppUI {
 
     private static final int WIDTH = 1000;
     private static final int HEIGHT = 600;
@@ -58,11 +61,8 @@ public class ClassyMatesAppUI extends JFrame {
     private void initGUI() {
         //Create and set up the window.
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
-        JPanel emptyPanel = new JPanel();
-        emptyPanel.setPreferredSize(new Dimension(WIDTH / 3, HEIGHT));
         frame.setJMenuBar(createMenu());
-        frame.add(emptyPanel, BorderLayout.LINE_START);
+        frame.add(sideBar(), BorderLayout.LINE_START);
         frame.add(classroomButtons(), BorderLayout.CENTER);
 
         //Display the window.
@@ -80,6 +80,24 @@ public class ClassyMatesAppUI extends JFrame {
         String enteredPassword = JOptionPane.showInputDialog(frame, "Please enter a password:");
 
         currentStudent = new Student(enteredUsername, enteredPassword, "Student");
+    }
+
+    // MODIFIES: this
+    // EFFECTS: creates and returns JPanel for each classroom
+    public JPanel sideBar() {
+        JPanel sideBarPanel = new JPanel();
+        BufferedImage image = null;
+        try {
+            image = ImageIO.read(new File("data/Images/raccoon.jpg"));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        JLabel imageLabel = new JLabel(new ImageIcon(image));
+        sideBarPanel.add(imageLabel);
+        sideBarPanel.setPreferredSize(new Dimension(WIDTH / 3, HEIGHT));
+
+
+        return sideBarPanel;
     }
 
     // MODIFIES: this
@@ -114,8 +132,6 @@ public class ClassyMatesAppUI extends JFrame {
 
         JButton loadButton = createLoadButton();
         menuBar.add(loadButton);
-
-        setJMenuBar(menuBar);
 
         return menuBar;
     }
