@@ -100,3 +100,10 @@ Example of logging events in ClassyMates.
 - Mon Nov 27 18:13:15 PST 2023
   - Added message "MessageA" to "SubgroupA"
 - Main window has closed
+
+## Phase 4: Task 3
+
+After drawing my UML Design Diagram, I have a lot of coupling specifically regarding all
+the UI classes having to refer to Student. If I were to have more time, I would try to resolve this issue
+since currently, many classes depend on Student. In general, the program's design is okay, but further decoupling and
+separation of responsibilities would help.
