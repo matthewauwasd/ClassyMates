@@ -22,6 +22,7 @@ public class Student extends User {
     // EFFECTS: creates and returns new subgroup with subgroup name
     public Subgroup createSubgroup(String subgroupName) {
         Subgroup newSubgroup = new Subgroup(subgroupName);
+        EventLog.getInstance().logEvent(new Event("Created subgroup: " + subgroupName));
         return newSubgroup;
     }
 
@@ -53,6 +54,7 @@ public class Student extends User {
     // EFFECTS: creates and returns new message with message body
     public Message createMessage(String messageBody) {
         Message newMessage = new Message(finalUsername,messageBody);
+        EventLog.getInstance().logEvent(new Event("Created message: " + messageBody));
         return newMessage;
     }
 

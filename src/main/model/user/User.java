@@ -1,8 +1,6 @@
 package model.user;
 
-import model.Classroom;
-import model.Comment;
-import model.Post;
+import model.*;
 
 // Represents a user who is able to post and comment, with a username, password, and user type.
 public abstract class User {
@@ -22,6 +20,7 @@ public abstract class User {
     // EFFECTS: creates a post with postTitle and postBody and creates an empty list of comment
     public Post createPost(String postTitle, String postBody) {
         Post newPost = new Post(finalUsername,postTitle,postBody);
+        EventLog.getInstance().logEvent(new Event("Created post: " + postTitle));
         return newPost;
     }
 
@@ -30,6 +29,7 @@ public abstract class User {
     // EFFECTS: creates a comment with commentBody
     public Comment createComment(String commentBody) {
         Comment newComment = new Comment(finalUsername,commentBody);
+        EventLog.getInstance().logEvent(new Event("Created comment: " + commentBody));
         return newComment;
     }
 

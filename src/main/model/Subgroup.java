@@ -25,6 +25,8 @@ public class Subgroup implements Writable {
     // EFFECTS: adds message to list of messages
     public void addMessage(Message m) {
         messages.add(m);
+        EventLog.getInstance().logEvent(new Event("Added message \"" + m.getMessageBody()
+                + "\" to \"" + finalSubgroupName + "\""));
     }
 
     // getters

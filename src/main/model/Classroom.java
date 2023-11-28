@@ -33,12 +33,16 @@ public class Classroom implements Writable {
     // EFFECTS: adds post to list of posts
     public void addPost(Post p) {
         posts.add(p);
+        EventLog.getInstance().logEvent(new Event("Added post \"" + p.getPostTitle()
+                + "\" to \"" + finalCourseName + "\""));
     }
 
     // MODIFIES: this
     // EFFECTS: adds subgroup to list of subgroups
     public void addSubgroup(Subgroup sg) {
         subgroups.add(sg);
+        EventLog.getInstance().logEvent(new Event("Added subgroup \"" + sg.getSubgroupName()
+                + "\" to \"" + finalCourseName + "\""));
     }
 
     // getters

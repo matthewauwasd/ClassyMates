@@ -1,6 +1,7 @@
 package ui;
 
 import model.*;
+import model.exception.LogException;
 import model.user.Student;
 import persistence.JsonReader;
 import persistence.JsonWriter;
@@ -10,6 +11,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -60,7 +63,7 @@ public class ClassyMatesAppUI {
     // EFFECTS:  displays GUI window
     private void initGUI() {
         //Create and set up the window.
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setDefaultCloseOperation(closeOperation());
         frame.setJMenuBar(createMenu());
         frame.add(sideBar(), BorderLayout.LINE_START);
         frame.add(classroomButtons(), BorderLayout.CENTER);
@@ -75,7 +78,7 @@ public class ClassyMatesAppUI {
     private void displayUserCreation() {
 
         String enteredUsername = JOptionPane.showInputDialog(frame, "\nHi, please make an account!\n"
-                        + "Please enter a username:");
+                + "Please enter a username:");
 
         String enteredPassword = JOptionPane.showInputDialog(frame, "Please enter a password:");
 
@@ -84,7 +87,7 @@ public class ClassyMatesAppUI {
 
     // MODIFIES: this
     // EFFECTS: creates and returns JPanel for each classroom
-    public JPanel sideBar() {
+    private JPanel sideBar() {
         JPanel sideBarPanel = new JPanel();
         BufferedImage image = null;
         try {
@@ -102,7 +105,7 @@ public class ClassyMatesAppUI {
 
     // MODIFIES: this
     // EFFECTS: creates and returns button for each classroom
-    public JScrollPane classroomButtons() {
+    private JScrollPane classroomButtons() {
         JPanel panel = new JPanel();
         for (Classroom c : structure.getClassroomList()) {
             JButton button = new JButton(c.getCourseName());
@@ -138,7 +141,7 @@ public class ClassyMatesAppUI {
 
     // MODIFIES: this
     // EFFECTS: creates and returns a button that saves the structure to file
-    public JButton createSaveButton() {
+    private JButton createSaveButton() {
         JButton saveButton = new JButton("Save");
         saveButton.addActionListener(new ActionListener() {
             @Override
@@ -159,7 +162,7 @@ public class ClassyMatesAppUI {
 
     // MODIFIES: this
     // EFFECTS: creates and returns a button that loads the saved structure from file
-    public JButton createLoadButton() {
+    private JButton createLoadButton() {
         JButton loadButton = new JButton("Load");
         loadButton.addActionListener(new ActionListener() {
             @Override
@@ -177,5 +180,37 @@ public class ClassyMatesAppUI {
             }
         });
         return loadButton;
+    }
+
+    // EFFECTS: creates log and prints out that main window has been closed
+    private void frameClose() {
+        frame.addWindowListener(new WindowAdapter() {
+
+            @Override
+            public void windowClosed(WindowEvent e) {
+                createLog();
+                System.out.println("Main window has closed");
+            }
+
+        });
+    }
+
+    // EFFECTS: creates log of events
+    //          displays error message if error occurs
+    private void createLog() {
+        LogPrinter lp;
+        try {
+            lp = new LogPrinter();
+            lp.printLog(EventLog.getInstance());
+        } catch (LogException e) {
+            JOptionPane.showMessageDialog(null, e.getMessage(), "System Error",
+                    JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
+    // EFFECTS: creates log operations and returns appropriate close operation to caller
+    private int closeOperation() {
+        frameClose();
+        return JFrame.DISPOSE_ON_CLOSE;
     }
 }

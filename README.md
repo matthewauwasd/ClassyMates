@@ -69,3 +69,34 @@ done better academically. Having friends in your classes really helps to create 
   top menu bar.
 - You can reload the state of my application by going to the first screen and clicking the load button in the
   top menu bar.
+
+## Phase 4: Task 2
+
+Example of logging events in ClassyMates.
+
+- User first creates a post with title "PostA", and it is added to classroom "CPSC 210". 
+- User then creates a comment with body "CommentA", and it is added to post "PostA".
+- User then creates a subgroup with name "SubgroupA", and it is added to classroom "CPSC 210".
+- User then creates a message with body "MessageA", and it is added to subgroup "SubgroupA".
+
+
+- **User then exits the program, and the following log is printed:**
+
+
+- Mon Nov 27 18:12:59 PST 2023 
+  - Created post: PostA
+- Mon Nov 27 18:12:59 PST 2023
+  - Added post "PostA" to "CPSC 210"
+- Mon Nov 27 18:13:03 PST 2023
+  - Created comment: CommentA
+- Mon Nov 27 18:13:03 PST 2023
+  - Added comment "CommentA" to "PostA"
+- Mon Nov 27 18:13:10 PST 2023
+  - Created subgroup: SubgroupA
+- Mon Nov 27 18:13:10 PST 2023
+  - Added subgroup "SubgroupA" to "CPSC 210"
+- Mon Nov 27 18:13:15 PST 2023
+  - Created message: MessageA
+- Mon Nov 27 18:13:15 PST 2023
+  - Added message "MessageA" to "SubgroupA"
+- Main window has closed

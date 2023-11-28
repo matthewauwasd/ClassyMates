@@ -30,6 +30,8 @@ public class Post implements Writable {
     // EFFECTS: adds comment to list of comments
     public void addComment(Comment c) {
         comments.add(c);
+        EventLog.getInstance().logEvent(new Event("Added comment \"" + c.getCommentBody()
+                + "\" to \"" + finalPostTitle + "\""));
     }
 
     // getters
